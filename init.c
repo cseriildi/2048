@@ -7,8 +7,8 @@ void init_board(t_board *board)
 	{
 		for (int y = 0; y < 5; y++)
 		{
-			board->tiles[x][y].number = 0;
-			board->tiles[x][y].merged = false;
+			board->tiles[y][x].number = 0;
+			board->tiles[y][x].merged = false;
 		}
 	}
 	if (board->size == 5)
@@ -17,9 +17,9 @@ void init_board(t_board *board)
 	{
 		board->empty_tiles = 16;
 		for (int x = 0; x < 5; x++)
-			board->tiles[x][4].number = -1;
+			board->tiles[4][x].number = -1;
 		for (int y = 0; y < 5; y++)
-			board->tiles[4][y].number = -1;
+			board->tiles[y][4].number = -1;
 	}
 	board->game_over = false;
 }
