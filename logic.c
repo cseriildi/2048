@@ -12,15 +12,15 @@ void	spawn_number(t_board *board)
 	else
 		number = 4;
 	printf("tile: %d || number: %d\n", tile, number);
-	for (int a = 0; a < 5; a++)
+	for (int x = 0; x < 5; x++)
 	{
-		for (int b = 0; b < 5; b++)
+		for (int y = 0; y < 5; y++)
 		{
-			if (board->tiles[a][b].number == 0)
+			if (board->tiles[x][y].number == 0)
 			{
 				if (tile == 0)
 				{
-					board->tiles[a][b].number = number;
+					board->tiles[x][y].number = number;
 					board->empty_tiles--;
 					return ;
 				}
