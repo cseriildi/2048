@@ -20,7 +20,7 @@ void	spawn_number(t_board *board)
 				if (tile == 0)
 				{
 					board->tiles[y][x].number = number;
-					printf("spawning @ (%i,%i):%i\n", x, y, number);
+					// printf("spawning @ (%i,%i):%i\n", x, y, number);
 					board->empty_tiles--;
 					return ;
 				}
@@ -30,36 +30,50 @@ void	spawn_number(t_board *board)
 	}
 }
 
-// move process
-// move first, then merge, then move again to fill gaps
-
-void	traverse_board(t_board *board,
+static void	move_and_merge(t_board *board, int x, int y,
 			 void (*move)(t_board *, int, int),
 			 void (*merge)(t_board *, int, int))
 {
-	for (int x = 0; x < 5; x++)
+	if (board->tiles[y][x].number == 0)
 	{
-		for (int y = 0; y < 5; y++)
+		if (move) move(board, x, y);
+	}
+	else if (board->tiles[y][x].number > 0 && board->tiles[y][x].merged == false)
+	{
+		if (merge) merge(board, x, y);
+	}
+}
+
+static void	traverse_board(t_board *board, t_direction dir,
+			 void (*move)(t_board *, int, int),
+			 void (*merge)(t_board *, int, int))
+{
+	// loop for moving left and up
+	if (dir == LEFT || dir == UP)
+	{
+		for (int x = 0; x < 5; x++)
 		{
-			if (board->tiles[y][x].number == 0)
+			for (int y = 0; y < 5; y++)
 			{
-				// printf("%s @ (%i,%i):%i\n", __func__, x, y, board->tiles[y][x].number);
-				if (move) move(board, x, y);
-				// if (move) printf("move function pointer okay\n");
-			}
-			else if (board->tiles[y][x].number > 0 && board->tiles[y][x].merged == false)
-			{
-				if (merge) merge(board, x, y);
-				// if (merge) printf("merge function pointer okay\n");
+				move_and_merge(board, x, y, move, merge);
 			}
 		}
 	}
-	(void)move;
-	(void)merge;
+	// loop for moving right and down
+	else
+	{
+		for (int x = 4; x >= 0; x--)
+		{
+			for (int y = 4; y >= 0; y--)
+			{
+				move_and_merge(board, x, y, move, merge);
+			}
+		}
+	}
 }
 
 
-void	reset_merged(t_board *board)
+static void	reset_merged(t_board *board)
 {
 	for (int x = 0; x < 5; x++)
 	{
@@ -77,13 +91,13 @@ void	exec_move(t_board *board, t_direction dir)
 
 	if (dir == UP)
 	{
-		move = NULL; // TODO: implement
-		merge = NULL; // TODO: implement
+		move = move_up;
+		merge = merge_up;
 	}
 	else if (dir == DOWN)
 	{
-		move = NULL; // TODO: implement
-		merge = NULL; // TODO: implement
+		move = move_down;
+		merge = merge_down;
 	}
 	else if (dir == LEFT)
 	{
@@ -92,42 +106,16 @@ void	exec_move(t_board *board, t_direction dir)
 	}
 	else if (dir == RIGHT)
 	{
-		move = NULL; // TODO: implement
-		merge = NULL; // TODO: implement
+		move = move_right;
+		merge = merge_right;
 	}
 	else
 	{
 		printf("Invalid direction\n");
 		return ;
 	}
-	traverse_board(board, move, NULL);
-	traverse_board(board, NULL, merge);
-	traverse_board(board, move, NULL);
+	traverse_board(board, dir, move, NULL);
+	traverse_board(board, dir, NULL, merge);
+	traverse_board(board, dir, move, NULL);
 	reset_merged(board);
 }
-
-
-/*
-// merge if right is the same number
-				for (int i = x + 1; i < 5; i++)
-				{
-					if (board->tiles[i][y].number == board->tiles[y][x].number)
-					{
-						board->tiles[i][ynumber].number *= 2;
-						board->tiles[i][y].number = 0;
-						board->empty_tiles++;
-						break ;
-						}
-						// just move
-						else if (board->tiles[i][y].number == 0)
-						{
-							board->tiles[x][i].number = board->tiles[y][x].number;
-							board->tiles[y][x].number = 0;
-							board->empty_tiles--;
-							y--;
-							break ;
-							}
-							else if (board->tiles[x][i].number != 0)
-							break ;
-				}
-*/
