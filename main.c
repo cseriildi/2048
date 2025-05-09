@@ -7,7 +7,13 @@ int main(void)
 	init_board(&board);
 	while (board.game_over == false)
 	{
+		printf("\n");
 		spawn_number(&board);
+		debug_print(&board);
+		sleep(1);
+		exec_move(&board, LEFT);
+		debug_print(&board);
+		sleep(1);
 		if (board.empty_tiles == 0)
 			board.game_over = true;
 	}

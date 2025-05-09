@@ -2,14 +2,14 @@
 
 void	debug_print(t_board *board)
 {
-	for (int x = 0; x < 5; x++)
+	for (int y = 0; y < 5; y++)
 	{
-		for (int y = 0; y < 5; y++)
+		for (int x = 0; x < 5; x++)
 		{
-			if (board->tiles[x][y].number == -1)
+			if (board->tiles[y][x].number == -1)
 				printf("X ");
 			else
-				printf("%d ", board->tiles[x][y].number);
+				printf("%d ", board->tiles[y][x].number);
 		}
 		printf("\n");
 	}
