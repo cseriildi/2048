@@ -31,12 +31,12 @@ void	spawn_number(t_board *board)
 }
 
 static void	move_and_merge(t_board *board, int x, int y,
-			 void (*move)(t_board *, int, int),
+			 void (*tile_move)(t_board *, int, int),
 			 void (*merge)(t_board *, int, int))
 {
 	if (board->tiles[y][x].number == 0)
 	{
-		if (move) move(board, x, y);
+		if (tile_move) tile_move(board, x, y);
 	}
 	else if (board->tiles[y][x].number > 0 && board->tiles[y][x].merged == false)
 	{
@@ -118,4 +118,26 @@ void	exec_move(t_board *board, t_direction dir)
 	traverse_board(board, dir, NULL, merge);
 	traverse_board(board, dir, move, NULL);
 	reset_merged(board);
+}
+
+void game_loop(t_board *board)
+{
+	keypad(board->score_win.win, TRUE);
+	int ch;
+	while ((ch = wgetch(board->score_win.win)) != ESCAPE)
+	{
+		if (board->empty_tiles != 0)
+			spawn_number(board);
+
+		if (ch == KEY_UP)
+			exec_move(board, UP);
+		else if (ch == KEY_DOWN)
+			exec_move(board, DOWN);
+		else if (ch == KEY_LEFT)
+			exec_move(board, LEFT);
+		else if (ch == KEY_RIGHT)
+			exec_move(board, RIGHT);
+		update_board(board);
+		//TODO: game over check
+	}
 }
