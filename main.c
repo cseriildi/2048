@@ -23,4 +23,5 @@ int main(void)
 
 	//TODO: scores shown on the side
 
+	return 0;
 }
