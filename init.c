@@ -21,4 +21,5 @@ void init_board(t_board *board)
 		for (int b = 0; b < 5; b++)
 			board->tiles[4][b].number = -1;
 	}
+	board->game_over = false;
 }
