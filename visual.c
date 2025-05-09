@@ -61,6 +61,7 @@ void update_board(t_board *board)
 		for (int j = 0; j < board->size; j++)
 		{
 			tile = board->tiles[i][j];
+			wclear(tile.win.win);
 			wbkgd(tile.win.win, COLOR_PAIR(tile.win.color));
 			if (tile.number != 0)
 				mvwprintw(tile.win.win, 1, 2, "%d", tile.number);

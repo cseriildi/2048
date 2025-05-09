@@ -5,6 +5,8 @@ SRCS = main.c \
 		visual.c \
 		debug.c \
 		init.c \
+		logic_move.c \
+		logic_merge.c \
 
 CC = cc
 
