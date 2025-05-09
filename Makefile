@@ -2,7 +2,9 @@ NAME = 2048
 
 SRCS = main.c \
 		logic.c \
-		visual.c 
+		visual.c \
+		debug.c \
+		init.c \
 
 CC = cc
 
@@ -36,7 +38,7 @@ $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR) $(DEPS_DIR)
 
 $(NAME): $(OBJS)
 	@printf "$(ITALIC)"
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lncurses
 	@echo "$(GREEN)Executable: ./$(NAME)$(RESET)"
 
 -include $(DEPS)

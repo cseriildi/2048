@@ -29,3 +29,25 @@ void	spawn_number(t_board *board)
 		}
 	}
 }
+
+
+
+void game_loop(t_board *board)
+{
+	keypad(board->score_win.win, TRUE);
+	int ch;
+	while ((ch = wgetch(board->score_win.win)) != ESCAPE)
+	{
+		//TODO: add game logic
+		/* 		if (ch == KEY_UP)
+			
+		else if (ch == KEY_DOWN)
+			
+		else if (ch == KEY_LEFT)
+			
+		else if (ch == KEY_RIGHT) */
+
+		
+		update_board(board);
+	}
+}
