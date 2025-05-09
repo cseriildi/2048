@@ -3,12 +3,12 @@
 void init_board(t_board *board)
 {
 	srand(time(NULL));
-	for (int a = 0; a < 5; a++)
+	for (int x = 0; x < 5; x++)
 	{
-		for (int b = 0; b < 5; b++)
+		for (int y = 0; y < 5; y++)
 		{
-			board->tiles[a][b].number = 0;
-			board->tiles[a][b].merged = false;
+			board->tiles[y][x].number = 0;
+			board->tiles[y][x].merged = false;
 		}
 	}
 	if (board->size == 5)
@@ -16,10 +16,10 @@ void init_board(t_board *board)
 	else
 	{
 		board->empty_tiles = 16;
-		for (int a = 0; a < 5; a++)
-			board->tiles[a][4].number = -1;
-		for (int b = 0; b < 5; b++)
-			board->tiles[4][b].number = -1;
+		for (int x = 0; x < 5; x++)
+			board->tiles[4][x].number = -1;
+		for (int y = 0; y < 5; y++)
+			board->tiles[y][4].number = -1;
 	}
 	board->game_over = false;
 }

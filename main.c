@@ -5,14 +5,17 @@ int main(void)
 {
 	t_board board = {0};
 
-	//init_board(&board);
-/* 	while (board.game_over == false)
+	init_board(&board);
+	while (board.game_over == false)
 	{
+		
 		spawn_number(&board);
+		debug_move(&board);
 		if (board.empty_tiles == 0)
 			board.game_over = true;
 	}
-	debug_print(&board); */
+
+	// debug_print(&board);
 
 	//TODO: check WIN_VALUE " This value is taken into account only if it is a power of 2"
 
