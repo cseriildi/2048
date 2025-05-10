@@ -107,7 +107,7 @@ t_result	window_resize_loop(t_board *board);
 t_result	setup_windows_error(t_board *board);
 // --- new
 t_result	window_size_check(t_board *board);
-t_result	window_too_small_loop(t_board *board);
+// t_result	window_too_small_loop(t_board *board);
 t_result	resize_gameloop(t_board *board, int ch);
 
 // main game logic
