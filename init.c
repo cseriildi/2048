@@ -34,7 +34,11 @@ int init_score(t_board *board)
 	}
 	char *line = NULL;
 	unsigned int score = 0;
-	ft_memset(board->top_scores, 0, sizeof(board->top_scores) * sizeof(unsigned int)); //NOLINT
+	// BUG this line causes a segmentation fault
+	// ft_memset(board->top_scores, 0, sizeof(board->top_scores) * sizeof(unsigned int)); //NOLINT
+	// HACK either of those lines fixes it
+	ft_memset(board->top_scores, 0, sizeof(board->top_scores));
+	// ft_memcpy(board->top_scores, (unsigned int[SCORE_LIST_SIZE]){0}, sizeof(board->top_scores));
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		//TODO: check the number? only digits and max 6 digits
