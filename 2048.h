@@ -10,6 +10,8 @@
 
 #include <ncurses.h>
 
+#define is_power_of_two(n) n > 0 && (n & (n - 1)) == 0
+
 #define ESCAPE 27
 
 #define MAX_BOARD_SIZE 5

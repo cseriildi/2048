@@ -5,8 +5,7 @@ int main(void)
 	t_board board = {0};
 	t_result result;
 
-	//TODO: check WIN_VALUE " This value is taken into account only if it is a power of 2"
-	if (false) //WIN_VALUE not power of 2
+	if (is_power_of_two(WIN_VALUE) == false)
 		return print_error(WIN_VALUE_ERROR);
 
 	if ((result = init_score(&board)) != SUCCESS)
