@@ -1,4 +1,11 @@
 #include "2048.h"
+unsigned int ft_sqrt(unsigned int n)
+{
+	unsigned int i = 0;
+	while (i * i < n)
+		i++;
+	return (i);
+}
 
 void update_board(t_board *board)
 {
@@ -10,7 +17,11 @@ void update_board(t_board *board)
 		{
 			tile = board->tiles[i][j];
 			wclear(tile.win.win);
-			wbkgd(tile.win.win, COLOR_PAIR(tile.win.color));
+			if (has_colors())
+			{
+				tile.win.color = ft_sqrt(tile.number) + 1;
+				wbkgd(tile.win.win, COLOR_PAIR(tile.win.color));
+			}
 			if (tile.number != 0)
 				print_centered_number(&tile.win, tile.win.size_y / 2, tile.number);
 			wrefresh(tile.win.win);

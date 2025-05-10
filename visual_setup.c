@@ -2,17 +2,16 @@
 
 static void	define_colors(void)
 {
-	if (has_colors()) //TODO: flag to not try to color the tiles
+	if (has_colors())
 	{
 		start_color();
-		//TODO: select colors for numbers
-		init_pair(1, COLOR_WHITE, COLOR_BLUE);
-		init_pair(2, COLOR_WHITE, COLOR_GREEN);
-		init_pair(3, COLOR_WHITE, COLOR_YELLOW);
-		init_pair(4, COLOR_WHITE, COLOR_CYAN);
-		init_pair(5, COLOR_WHITE, COLOR_MAGENTA);
-		init_pair(6, COLOR_WHITE, COLOR_RED);
-		init_pair(7, COLOR_BLACK, COLOR_WHITE);
+		//TODO: select final colors
+		short blue_shades[20] = {
+			231, 189, 153, 117, 111, 110, 109, 81, 80, 79,
+			74, 73, 72, 67, 66, 65, 60, 25, 24, 18
+		};
+		for (int i = 0; i < 20; ++i)
+			init_pair(i + 1, COLOR_BLACK, blue_shades[i]);
 	}
 }
 
@@ -35,8 +34,7 @@ t_result	setup_windows_error(t_board *board)
 						tile->win.pos_y,
 						tile->win.pos_x);
 			if (tile->win.win == NULL)
-				return 1; // TODO: error handling
-			tile->win.color = 1; //TODO: dynamic coloring based on value
+				return NCURSES_FAILED;
 		}
 	}
 	// score board window

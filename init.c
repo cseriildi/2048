@@ -20,6 +20,16 @@ void init_board(t_board *board)
 	update_board(board);
 	update_score(board);
 }
+static bool is_valid_score(char *score)
+{
+	for (int i = 0; score[i] != '\n'; i++)
+	{
+		if (i > 5 || !isdigit(score[i]))
+			return false;
+	}
+	return true;
+}
+
 
 t_result init_score(t_board *board)
 {
@@ -36,7 +46,11 @@ t_result init_score(t_board *board)
 	// ft_memcpy(board->top_scores, (unsigned int[SCORE_LIST_SIZE]){0}, sizeof(board->top_scores));
 	while ((line = get_next_line(fd)) != NULL)
 	{
-		//TODO: check the number? only digits and max 6 digits
+		if (is_valid_score(line) == false)
+		{
+			free(line);
+			continue;
+		}
 		score = ft_atoi(line);
 		int i = 0;
 		while (i < SCORE_LIST_SIZE && board->top_scores[i] >= score)
