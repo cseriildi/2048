@@ -13,6 +13,9 @@
 #define ESCAPE 27
 #define MAX_SIZE 5
 
+#define SCORE_FILE "scores.txt"
+#define SCORE_LIST_SIZE 30  //TODO: check on the size of the array
+
 enum e_const
 {
 	WIN_VALUE = 2048
@@ -48,6 +51,8 @@ typedef struct board
 	unsigned int screen_x;
 	unsigned int screen_y;
 
+	unsigned int top_scores[SCORE_LIST_SIZE];
+
 }	t_board;
 
 typedef enum e_direction
@@ -60,8 +65,10 @@ typedef enum e_direction
 
 // ncusrses
 int		init_ncurses(t_board *board);
+int		init_score(t_board *board);
 void	cleanup_ncurses(t_board *board);
 void	update_board(t_board *board);
+void	update_score(t_board *board);
 // main game logic
 void	init_board(t_board *board);
 void	game_loop(t_board *board);
@@ -90,3 +97,6 @@ void	merge_down(t_board *board, int x, int y);
 // debug functions
 void	debug_print(t_board *board);
 void	debug_move(t_board *board);
+
+
+int		write_score_to_file(t_board *board);

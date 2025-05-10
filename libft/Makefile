@@ -6,7 +6,7 @@
 #    By: icseri <icseri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 10:47:29 by icseri            #+#    #+#              #
-#    Updated: 2025/05/10 12:37:16 by icseri           ###   ########.fr        #
+#    Updated: 2025/05/10 13:13:49 by icseri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,8 @@ $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR) $(DEPS_DIR)
 ${NAME}: ${OBJS}
 	@ar -rc ${NAME} ${OBJS}
 	ranlib $(NAME)
+
+-include $(DEPS)
 
 clean: 
 	@rm -f ${OBJS}

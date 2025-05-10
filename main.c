@@ -20,6 +20,7 @@ int main(void)
 	}
 	
 	init_board(&board);
+	init_score(&board);
 	game_loop(&board);
 	cleanup_ncurses(&board);
 	return 0;

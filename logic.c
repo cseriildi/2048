@@ -88,6 +88,8 @@ void game_loop(t_board *board)
 			if (board->empty_tiles != 0)
 				spawn_number(board);
 			update_board(board);
+			update_score(board);
 		}
 	}
+	write_score_to_file(board);
 }
