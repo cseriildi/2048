@@ -23,7 +23,7 @@ void update_score(t_board *board)
 	wclear(board->score_win.win);
 	//TODO: check window size
 	wattron(board->score_win.win, A_BOLD); 
-	print_centered(&board->score_win, 1, "Top Scores");
+	print_centered(&board->score_win, 1, SCORE_TITLE);
 	wattroff(board->score_win.win, A_BOLD); 
 
 	unsigned int i = 0;
