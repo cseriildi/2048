@@ -9,6 +9,7 @@
 #include <ncurses.h>
 
 #define ESCAPE 27
+#define MAX_SIZE 5
 
 enum e_const
 {
@@ -36,7 +37,7 @@ typedef struct board
 	bool 	game_over;
 	short 	size;
 	int  	empty_tiles;
-	t_tile	tiles[5][5];
+	t_tile	tiles[MAX_SIZE][MAX_SIZE];
 
 	t_win	score_win;
 	unsigned int score;
