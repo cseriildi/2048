@@ -23,7 +23,6 @@ void init_board(t_board *board)
 
 int init_score(t_board *board)
 {
-	//TODO: update in merge, if the merged number is bigger than board->score
 	if (SCORE_LIST_SIZE <= 0)
 		return 0;
 	int fd = open(SCORE_FILE, O_RDWR | O_CREAT, 0644);
