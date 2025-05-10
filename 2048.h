@@ -11,10 +11,25 @@
 #include <ncurses.h>
 
 #define ESCAPE 27
-#define MAX_SIZE 5
+
+#define MAX_BOARD_SIZE 5
+#define MAX_SIZE_OPTIONS 2
 
 #define SCORE_FILE "scores.txt"
 #define SCORE_LIST_SIZE 30  //TODO: check on the size of the array
+
+#define ROW_TITLE 1	// box border has 0
+#define COL_TEXT 1	// box border has 0
+#define MENU_WIDTH 24
+#define MENU_HEIGHT 7
+#define MENU_TITLE "Let's play 2048!" // 16 chars
+#define MENU_INFO "Select grid size:" // 17 chars
+#define MENU_OPTIONS_X_OFFSET 3
+#define MENU_OPTIONS_Y_OFFSET 1
+#define SCORE_TITLE "Top Scores" // 11 chars
+#define MIN_TILE_X 6
+#define MIN_TILE_Y 3
+#define MIN_TILE_SPACING 1
 
 enum e_const
 {
@@ -44,7 +59,7 @@ typedef struct board
 	bool	spawn;
 	short 	size;
 	int  	empty_tiles;
-	t_tile	tiles[MAX_SIZE][MAX_SIZE];
+	t_tile	tiles[MAX_BOARD_SIZE][MAX_BOARD_SIZE];
 
 	t_win	score_win;
 	unsigned int score;

@@ -23,26 +23,26 @@ void update_score(t_board *board)
 {
 	wclear(board->score_win.win);
 	//TODO: check window size, maybe add title
-	mvwprintw(board->score_win.win, 1, 1, "Top Scores");
+	mvwprintw(board->score_win.win, ROW_TITLE, COL_TEXT, SCORE_TITLE);
 	unsigned int i = 0;
 	unsigned int j = 2;
 	while  (j < board->score_win.size_y && board->score < board->top_scores[i])
 	{
 		if (board->top_scores[i] == 0)
 			break;
-		mvwprintw(board->score_win.win, j++, 1, "%d", board->top_scores[i++]);
+		mvwprintw(board->score_win.win, j++, COL_TEXT, "%d", board->top_scores[i++]);
 	}
 	if (j < board->score_win.size_y)
 	{
 		wattron(board->score_win.win, A_REVERSE);
-		mvwprintw(board->score_win.win, j++, 1, "%d", board->score);
+		mvwprintw(board->score_win.win, j++, COL_TEXT, "%d", board->score);
 		wattroff(board->score_win.win, A_REVERSE);
 	}
 	while  (j < board->score_win.size_y)
 	{
 		if (board->top_scores[i] == 0)
 			break;
-		mvwprintw(board->score_win.win, j++, 1, "%d", board->top_scores[i++]);
+		mvwprintw(board->score_win.win, j++, COL_TEXT, "%d", board->top_scores[i++]);
 
 	}
 	
