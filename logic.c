@@ -90,6 +90,11 @@ void game_loop(t_board *board)
 			update_board(board);
 			update_score(board);
 		}
-		resize_gameloop(board, ch);
+		if (resize_gameloop(board, ch) != SUCCESS)
+			break ;
+		// {
+		// 	cleanup_ncurses(board);
+		// 	return ;
+		// }
 	}
 }
