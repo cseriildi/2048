@@ -5,6 +5,8 @@ void	spawn_number(t_board *board)
 	short tile;
 	short number;
 	
+	if (!board->spawn)
+		return ;
 	tile =  rand() % (board->empty_tiles);
 	number = rand() % 10;
 	if (number < 9)
@@ -22,6 +24,7 @@ void	spawn_number(t_board *board)
 					board->tiles[y][x].number = number;
 					// printf("spawning @ (%i,%i):%i\n", x, y, number);
 					board->empty_tiles--;
+					board->spawn = false;
 					return ;
 				}
 				tile--;
@@ -70,9 +73,6 @@ void game_loop(t_board *board)
 {
 	keypad(board->score_win.win, TRUE);
 	int ch;
-	spawn_number(board);
-	spawn_number(board);
-	update_board(board);
 	while ((ch = wgetch(board->score_win.win)) != ESCAPE)
 	{
 		check_game_over(board);

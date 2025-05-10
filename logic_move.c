@@ -10,6 +10,7 @@ void	move_left(t_board *board, int x, int y)
 			// printf("moving left %i @ (%i,%i)\n", board->tiles[y][i].number, x, y);
 			board->tiles[y][x].number = board->tiles[y][i].number;
 			board->tiles[y][i].number = 0;
+			board->spawn = true;
 			break ;
 		}
 	}
@@ -25,6 +26,7 @@ void	move_right(t_board *board, int x, int y)
 			// printf("moving right %i @ (%i,%i)\n", board->tiles[y][i].number, x, y);
 			board->tiles[y][x].number = board->tiles[y][i].number;
 			board->tiles[y][i].number = 0;
+			board->spawn = true;
 			break ;
 		}
 	}
@@ -40,6 +42,7 @@ void	move_down(t_board *board, int x, int y)
 			// printf("moving down %i @ (%i,%i)\n", board->tiles[i][x].number, x, y);
 			board->tiles[y][x].number = board->tiles[i][x].number;
 			board->tiles[i][x].number = 0;
+			board->spawn = true;
 			break ;
 		}
 	}
@@ -55,6 +58,7 @@ void	move_up(t_board *board, int x, int y)
 			// printf("moving up %i @ (%i,%i)\n", board->tiles[i][x].number, x, y);
 			board->tiles[y][x].number = board->tiles[i][x].number;
 			board->tiles[i][x].number = 0;
+			board->spawn = true;
 			break ;
 		}
 	}

@@ -38,6 +38,7 @@ typedef struct board
 {
 	bool 	game_over;
 	bool 	win;
+	bool	spawn;
 	short 	size;
 	int  	empty_tiles;
 	t_tile	tiles[MAX_SIZE][MAX_SIZE];

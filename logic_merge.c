@@ -6,6 +6,7 @@ static void	merge_helper(t_board *board, int x, int y)
 	if (board->tiles[y][x].number == WIN_VALUE)
 		board->win = true;
 	board->empty_tiles++;
+	board->spawn = true;
 }
 
 void	merge_left(t_board *board, int x, int y)
