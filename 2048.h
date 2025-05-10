@@ -16,7 +16,7 @@
 #define MAX_SIZE_OPTIONS 2
 
 #define SCORE_FILE "scores.txt"
-#define SCORE_LIST_SIZE 30  //TODO: check on the size of the array
+#define SCORE_LIST_SIZE 100
 
 #define ROW_TITLE 1	// box border has 0
 #define COL_TEXT 1	// box border has 0
