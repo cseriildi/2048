@@ -19,7 +19,7 @@ static void update_menu(t_win *menu)
 	wrefresh(menu->win);
 }
 
-static int menu(t_board *board)
+static t_result menu(t_board *board)
 {
 	t_win menu = {0};
 	//TODO: check the size, get rid of hardcoded values
@@ -28,6 +28,8 @@ static int menu(t_board *board)
 	menu.win = newwin(menu.size_y, menu.size_x,
 			board->screen_y / 2 - menu.size_y / 2, board->screen_x / 2 - menu.size_x / 2);
 
+	if (menu.win == NULL)
+		return NCURSES_FAILED;
 	update_menu(&menu);
 	keypad(menu.win, TRUE);
 	int ch = wgetch(menu.win);
@@ -49,11 +51,13 @@ static int menu(t_board *board)
 	wclear(menu.win);
 	wrefresh(menu.win);
 	delwin(menu.win);
-	return 0;
+	return SUCCESS;
 }
 
-int init_ncurses(t_board *board)
+t_result init_ncurses(t_board *board)
 {
+	t_result result = SUCCESS;
+
 	initscr();
 	noecho(); // user typed input will not be displayed on screen
 	cbreak(); // disables line buffering; typed characters immediately available
@@ -74,8 +78,8 @@ int init_ncurses(t_board *board)
 	}
 
 	getmaxyx(stdscr, board->screen_y, board->screen_x); //TODO: check if screen is big enough
-	if (menu(board) == 1)
-		return 1; //TODO: define error codes
+	if ((result = menu(board)) != SUCCESS)
+		return result;
 
 	//TODO: formula for resizing
 	board->score_win.size_x = board->screen_x - (board->size * 8);
@@ -85,7 +89,7 @@ int init_ncurses(t_board *board)
 	board->score_win.win = newwin(board->score_win.size_y,  board->score_win.size_x, 
 			board->score_win.pos_y, board->score_win.pos_x);
 	if (board->score_win.win == NULL)
-		return 1;
+		return NCURSES_FAILED;
 	
 	for (int i = 0; i < board->size; i++)
 	{
@@ -98,5 +102,5 @@ int init_ncurses(t_board *board)
 			board->tiles[i][j].win.color = 1; //TODO: dynamic coloring based on value
 		}
 	}
-	return 0;
+	return SUCCESS;
 }

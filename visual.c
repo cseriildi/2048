@@ -57,14 +57,23 @@ void cleanup_ncurses(t_board *board)
 		for (int j = 0; j < board->size; j++)
 		{
 			if (board->tiles[i][j].win.win != NULL)
+			{
 				delwin(board->tiles[i][j].win.win);
+				board->tiles[i][j].win.win = NULL;
+			}
 		}
 	}
 
 	if (board->score_win.win != NULL)
+	{
 		delwin(board->score_win.win);
+		board->score_win.win = NULL;
+	}
 	if (stdscr != NULL)
+	{
 		delwin(stdscr);
+		stdscr = NULL;
+	}
 	endwin();
 }
 

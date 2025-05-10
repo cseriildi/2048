@@ -62,9 +62,19 @@ typedef enum e_direction
 	RIGHT
 }	t_direction;
 
+typedef enum e_result
+{
+	SUCCESS,
+	CANT_OPEN_FILE,
+	NCURSES_FAILED,
+	WIN_VALUE_ERROR,
+	SCORE_LIST_SIZE_ERROR,
+}	t_result;
+
+
 // ncusrses
-int		init_ncurses(t_board *board);
-int		init_score(t_board *board);
+t_result	init_ncurses(t_board *board);
+t_result	init_score(t_board *board);
 void	cleanup_ncurses(t_board *board);
 void	update_board(t_board *board);
 void	update_score(t_board *board);
@@ -98,4 +108,5 @@ void	debug_print(t_board *board);
 void	debug_move(t_board *board);
 
 
-int		write_score_to_file(t_board *board);
+t_result	write_score_to_file(t_board *board);
+t_result	print_error(t_result result);
