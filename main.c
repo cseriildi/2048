@@ -17,7 +17,7 @@ int main(void)
 	if ((result = init_score(&board)) != SUCCESS)
 		return print_error(result);
 
-	if ((result = init_ncurses(&board)) != SUCCESS)
+	if ((result = setup_ncurses(&board)) != SUCCESS)
 	{
 		cleanup_ncurses(&board);
 		return print_error(result);

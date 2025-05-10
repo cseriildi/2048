@@ -11,10 +11,26 @@
 #include <ncurses.h>
 
 #define ESCAPE 27
-#define MAX_SIZE 5
+
+#define MAX_BOARD_SIZE 5
+#define MAX_SIZE_OPTIONS 2
 
 #define SCORE_FILE "scores.txt"
 #define SCORE_LIST_SIZE 30  //TODO: check on the size of the array
+
+#define ROW_TITLE 1	// box border has 0
+#define COL_TEXT 1	// box border has 0
+#define MENU_WIDTH 24
+#define MENU_HEIGHT 7
+#define MENU_TITLE "Let's play 2048!" // 16 chars
+#define MENU_INFO "Select grid size:" // 17 chars
+#define MENU_OPTIONS_X_OFFSET 3
+#define MENU_OPTIONS_Y_OFFSET 1
+#define SCORE_TITLE "Top Scores" // 11 chars
+#define MIN_TILE_X 6
+#define MIN_TILE_Y 3
+#define MIN_TILE_SPACING 1
+#define MIN_SCORE_X 16
 
 enum e_const
 {
@@ -44,12 +60,15 @@ typedef struct board
 	bool	spawn;
 	short 	size;
 	int  	empty_tiles;
-	t_tile	tiles[MAX_SIZE][MAX_SIZE];
+	t_tile	tiles[MAX_BOARD_SIZE][MAX_BOARD_SIZE];
 
 	t_win	score_win;
+	t_win	menu;
 	unsigned int score;
 	unsigned int screen_x;
 	unsigned int screen_y;
+	unsigned int min_screen_x;
+	unsigned int min_screen_y;
 
 	unsigned int top_scores[SCORE_LIST_SIZE];
 
@@ -70,16 +89,26 @@ typedef enum e_result
 	NCURSES_FAILED,
 	WIN_VALUE_ERROR,
 	SCORE_LIST_SIZE_ERROR,
+	USER_EXIT,
 }	t_result;
 
 //init
+t_result	setup_ncurses(t_board *board);
 t_result	init_score(t_board *board);
 void		init_board(t_board *board);
 
 // ncusrses
-t_result	init_ncurses(t_board *board);
 void		update_board(t_board *board);
 void		update_score(t_board *board);
+t_result	resize_window(t_board *board, int ch);
+t_result	menu(t_board *board);
+t_result 	board_size_check(t_board *board);
+t_result	window_resize_loop(t_board *board);
+t_result	setup_windows_error(t_board *board);
+// --- new
+t_result	window_size_check(t_board *board);
+// t_result	window_too_small_loop(t_board *board);
+t_result	resize_gameloop(t_board *board, int ch);
 
 // main game logic
 void		game_loop(t_board *board);
@@ -113,3 +142,11 @@ void		cleanup_ncurses(t_board *board);
 // debug functions
 void		debug_print(t_board *board);
 void		debug_move(t_board *board);
+
+
+t_result	write_score_to_file(t_board *board);
+
+//utils
+unsigned int	get_center_pos(t_win *win, unsigned int size);
+void		print_centered(t_win *win, int row, const char *str);
+void		print_centered_number(t_win *win, int row, unsigned int number);
