@@ -22,7 +22,6 @@ void	spawn_number(t_board *board)
 				if (tile == 0)
 				{
 					board->tiles[y][x].number = number;
-					// printf("spawning @ (%i,%i):%i\n", x, y, number);
 					board->empty_tiles--;
 					board->spawn = false;
 					return ;
