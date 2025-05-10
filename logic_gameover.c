@@ -17,10 +17,13 @@ void	check_game_over(t_board *board)
 		if (!is_move_possible(board))
 		{
 			board->game_over = true;
-			//TODO show in new pop up window
-			wclear(board->score_win.win);
-			mvwprintw(board->score_win.win, 1, 1, "Game Over");
-			wrefresh(board->score_win.win);
+			box(board->menu.win, 0, 0);
+			wattron(board->menu.win, A_BOLD);
+			print_centered(&board->menu, 1, "Game Over!");
+			print_centered(&board->menu, 2, "Your score is");
+			print_centered_number(&board->menu, 3, board->score);
+			wattroff(board->menu.win, A_BOLD);
+			wrefresh(board->menu.win);
 		}
 	}
 }
