@@ -68,7 +68,7 @@ int init_score(t_board *board)
 
 int write_score_to_file(t_board *board)
 {
-	int fd = open(SCORE_FILE, O_APPEND | O_CREAT, 0644);
+	int fd = open(SCORE_FILE, O_WRONLY | O_APPEND | O_CREAT, 0644);
 	if (fd == -1)
 	{
 		//TODO: print error after closing ncurses
