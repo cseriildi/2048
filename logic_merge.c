@@ -4,7 +4,7 @@ void	merge_left(t_board *board, int x, int y)
 {
 	// printf("calling %s @ (%i,%i):%i\n", __func__, x, y, board->tiles[y][x].number);
 	int i = x + 1;
-	if (i < 5)
+	if (i < board->size)
 	{
 		if (board->tiles[y][i].number == board->tiles[y][x].number)
 		{
@@ -38,7 +38,7 @@ void	merge_up(t_board *board, int x, int y)
 {
 	// printf("calling %s @ (%i,%i):%i\n", __func__, x, y, board->tiles[y][x].number);
 	int i = y + 1;
-	if (i < 5)
+	if (i < board->size)
 	{
 		if (board->tiles[i][x].number == board->tiles[y][x].number)
 		{
