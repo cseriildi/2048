@@ -55,6 +55,8 @@ t_result print_error(t_result result)
 		ft_putstr_fd("WIN_VALUE must be a power of 2", 2);
 	else if (result == SCORE_LIST_SIZE_ERROR)
 		ft_putstr_fd("SCORE_LIST_SIZE must be greater than 0", 2);
+	else if (result == USER_EXIT)
+		return SUCCESS;
 
 	return result;
 }
