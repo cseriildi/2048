@@ -74,7 +74,7 @@ t_result	setup_ncurses(t_board *board)
 	init_ncurses();
 	define_colors();
 	// check if the screen is big enough for the game
-	if ((result = window_resize_loop(board)) != SUCCESS)
+	if ((result = window_size_check(board)) != SUCCESS)
 		return result;
 	// game mode selection
 	if (!board->size && (result = menu(board)) != SUCCESS)

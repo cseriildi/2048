@@ -46,7 +46,7 @@ static t_result	resize_menu(t_board *board)
 	// if (res != SUCCESS)
 	// 	return res;
 	
-	if ((res = window_resize_loop(board)) != SUCCESS)
+	if ((res = window_size_check(board)) != SUCCESS)
 	{
 		return res;
 	}
