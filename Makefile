@@ -18,6 +18,8 @@ VAL_FLAGS = --leak-check=full \
 			--show-leak-kinds=all \
 			--suppressions=ncurses.supp 
 
+NCURSES_FLAGS = -lncurses
+
 OBJ_DIR = obj
 DEPS_DIR = $(OBJ_DIR)/.deps
 
@@ -40,7 +42,8 @@ $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR) $(DEPS_DIR)
 
 $(NAME): $(OBJS)
 	@printf "$(ITALIC)"
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lncurses
+	@${MAKE} -C ./libft --no-print-directory
+	$(CC) $(CFLAGS) ./libft/libft.a -o $(NAME) $(OBJS) $(NCURSES_FLAGS)
 	@echo "$(GREEN)Executable: ./$(NAME)$(RESET)"
 
 -include $(DEPS)
@@ -48,6 +51,7 @@ $(NAME): $(OBJS)
 .PHONY: clean
 clean:
 	@printf "$(ITALIC)"
+	@${MAKE} -C ./libft --no-print-directory fclean
 	rm -rf $(OBJ_DIR)
 	@printf "$(RESET)"
 
