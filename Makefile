@@ -11,6 +11,7 @@ SRCS = main.c \
 		logic_gameover.c \
 		init_visual.c \
 		cleanup.c \
+		visual_menu.c \
 
 CC = cc
 
