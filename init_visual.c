@@ -3,9 +3,11 @@
 static void update_menu(t_win *menu)
 {
 	box(menu->win, 0, 0);
-	//TODO: center the text
-	mvwprintw(menu->win, 1, 1, "Let's play 2048!");
-	mvwprintw(menu->win, 2, 1, "Select grid size:");
+	wattron(menu->win, A_BOLD); 
+	print_centered(menu, 1, "Let's play 2048!");
+	wattroff(menu->win, A_BOLD); 
+	print_centered(menu, 1, "Select grid size:");
+
 	const char *options[2] = {"4 x 4", "5 x 5"};
 	
 	for (unsigned int i = 0; i < 2; i++) {
@@ -13,7 +15,7 @@ static void update_menu(t_win *menu)
 			wattron(menu->win, A_REVERSE);
 		}
 		//TODO: get rid of hardcoded values
-		mvwprintw(menu->win, 3 + i, 2, "%s", options[i]);
+		print_centered(menu, 3 + i, options[i]);
 		wattroff(menu->win, A_REVERSE);
 	}
 	wrefresh(menu->win);
@@ -21,36 +23,37 @@ static void update_menu(t_win *menu)
 
 static t_result menu(t_board *board)
 {
-	t_win menu = {0};
 	//TODO: check the size, get rid of hardcoded values
-	menu.size_x = 32;
-	menu.size_y = 6;
-	menu.win = newwin(menu.size_y, menu.size_x,
-			board->screen_y / 2 - menu.size_y / 2, board->screen_x / 2 - menu.size_x / 2);
-
-	if (menu.win == NULL)
+	board->menu.size_x = 32;
+	board->menu.size_y = 6;
+	board->menu.win = newwin(board->menu.size_y, board->menu.size_x,
+		board->screen_y / 2 - board->menu.size_y / 2, board->screen_x / 2 - board->menu.size_x / 2);
+		
+	if (board->menu.win == NULL)
 		return NCURSES_FAILED;
-	update_menu(&menu);
-	keypad(menu.win, TRUE);
-	int ch = wgetch(menu.win);
+	
+	board->menu.scroll_offset = 0;
+	update_menu(&board->menu);
+	keypad(board->menu.win, TRUE);
+
+	int ch = wgetch(board->menu.win);
 	while (ch != '\n')
 	{
 		if (ch == KEY_UP)
-			menu.scroll_offset = 0;
+			board->menu.scroll_offset = 0;
 		else if (ch == KEY_DOWN)
-			menu.scroll_offset = 1;
+			board->menu.scroll_offset = 1;
 		else if (ch == ESCAPE)
 		{
-			delwin(menu.win);
+			delwin(board->menu.win);
 			return 1;
 		}
-		update_menu(&menu);
-		ch = wgetch(menu.win);
+		update_menu(&board->menu);
+		ch = wgetch(board->menu.win);
 	}
-	board->size = (menu.scroll_offset == 0) ? 4 : 5;
-	wclear(menu.win);
-	wrefresh(menu.win);
-	delwin(menu.win);
+	board->size = (board->menu.scroll_offset == 0) ? 4 : 5;
+	wclear(board->menu.win);
+	wrefresh(board->menu.win);
 	return SUCCESS;
 }
 
@@ -95,11 +98,20 @@ t_result init_ncurses(t_board *board)
 	{
 		for (int j = 0; j < board->size; j++)
 		{
+			t_tile *tile = &board->tiles[i][j];
 			//TODO: formula for resizing
-			board->tiles[i][j].win.win = newwin(3, 6, i * (3 + 1) + 1, j * (6 + 2) + 1);
-			if (board->tiles[i][j].win.win == NULL)
+			tile->win.size_x = 6;
+			tile->win.size_y = 3;
+			tile->win.pos_x = j * (6 + 2) + 1;
+			tile->win.pos_y = i * (3 + 1) + 1;
+			tile->win.win = newwin(tile->win.size_y, 
+				tile->win.size_x, 
+				tile->win.pos_y, 
+				tile->win.pos_x);
+
+			if (tile->win.win == NULL)
 				return 1;
-			board->tiles[i][j].win.color = 1; //TODO: dynamic coloring based on value
+			tile->win.color = 1; //TODO: dynamic coloring based on value
 		}
 	}
 	return SUCCESS;
