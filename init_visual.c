@@ -16,63 +16,6 @@ static void	define_colors(void)
 	}
 }
 
-static void update_menu(t_win *menu)
-{
-	box(menu->win, 0, 0);
-	wattron(menu->win, A_BOLD); 
-	print_centered(menu, 1, "Let's play 2048!");
-	wattroff(menu->win, A_BOLD); 
-	print_centered(menu, 1, "Select grid size:");
-
-	const char *options[2] = {"4 x 4", "5 x 5"};
-	
-	for (unsigned int i = 0; i < 2; i++) {
-		if (i == menu->scroll_offset) {
-			wattron(menu->win, A_REVERSE);
-		}
-		//TODO: get rid of hardcoded values
-		print_centered(menu, 3 + i, options[i]);
-		wattroff(menu->win, A_REVERSE);
-	}
-	wrefresh(menu->win);
-}
-
-static t_result menu(t_board *board)
-{
-	//TODO: check the size, get rid of hardcoded values
-	board->menu.size_x = 32;
-	board->menu.size_y = 6;
-	board->menu.win = newwin(board->menu.size_y, board->menu.size_x,
-		board->screen_y / 2 - board->menu.size_y / 2, board->screen_x / 2 - board->menu.size_x / 2);
-		
-	if (board->menu.win == NULL)
-		return NCURSES_FAILED;
-	
-	board->menu.scroll_offset = 0;
-	update_menu(&board->menu);
-	keypad(board->menu.win, TRUE);
-
-	int ch = wgetch(board->menu.win);
-	while (ch != '\n')
-	{
-		if (ch == KEY_UP)
-			board->menu.scroll_offset = 0;
-		else if (ch == KEY_DOWN)
-			board->menu.scroll_offset = 1;
-		else if (ch == ESCAPE)
-		{
-			delwin(board->menu.win);
-			return 1;
-		}
-		update_menu(&board->menu);
-		ch = wgetch(board->menu.win);
-	}
-	board->size = (board->menu.scroll_offset == 0) ? 4 : 5;
-	wclear(board->menu.win);
-	wrefresh(board->menu.win);
-	return SUCCESS;
-}
-
 t_result	setup_windows_error(t_board *board)
 {
 	// game window = individual tiles
@@ -82,14 +25,18 @@ t_result	setup_windows_error(t_board *board)
 		{
 			t_tile *tile = &board->tiles[i][j];
 			//TODO: formula for resizing
-			board->tiles[i][j].win.win = newwin(
-						MIN_TILE_Y,
-						MIN_TILE_X,
-						i * (MIN_TILE_Y + MIN_TILE_SPACING) + 1,
-						j * (MIN_TILE_X + MIN_TILE_SPACING * 2) + 1);
-			if (board->tiles[i][j].win.win == NULL)
+			tile->win.size_x = MIN_TILE_X;
+			tile->win.size_y = MIN_TILE_Y;
+			tile->win.pos_x = j * (MIN_TILE_X + MIN_TILE_SPACING * 2) + 1;
+			tile->win.pos_y = i * (MIN_TILE_Y + MIN_TILE_SPACING) + 1;
+			tile->win.win = newwin(
+						tile->win.size_y,
+						tile->win.size_x,
+						tile->win.pos_y,
+						tile->win.pos_x);
+			if (tile->win.win == NULL)
 				return 1; // TODO: error handling
-			board->tiles[i][j].win.color = 1; //TODO: dynamic coloring based on value
+			tile->win.color = 1; //TODO: dynamic coloring based on value
 		}
 	}
 	// score board window
