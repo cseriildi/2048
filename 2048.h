@@ -37,6 +37,7 @@ typedef struct tile
 typedef struct board
 {
 	bool 	game_over;
+	bool 	win;
 	short 	size;
 	int  	empty_tiles;
 	t_tile	tiles[MAX_SIZE][MAX_SIZE];
