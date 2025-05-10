@@ -9,8 +9,6 @@ int main(void)
 	
 	//TODO: print instructions
 	
-	//TODO: write best score to file
-
 	//TODO: ascii art for numbers
 	
 	if (init_ncurses(&board) == 1)

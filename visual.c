@@ -21,7 +21,6 @@ void update_board(t_board *board)
 
 void update_score(t_board *board)
 {
-	//TODO: add the current player's score
 	wclear(board->score_win.win);
 	//TODO: check window size, maybe add title
 	mvwprintw(board->score_win.win, 1, 1, "Top Scores");

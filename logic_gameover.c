@@ -17,7 +17,7 @@ void	check_game_over(t_board *board)
 		if (!is_move_possible(board))
 		{
 			board->game_over = true;
-			//TODO implement this with score board list
+			//TODO show in new pop up window
 			wclear(board->score_win.win);
 			mvwprintw(board->score_win.win, 1, 1, "Game Over");
 			wrefresh(board->score_win.win);
