@@ -47,6 +47,7 @@ typedef struct board
 	t_tile	tiles[MAX_SIZE][MAX_SIZE];
 
 	t_win	score_win;
+	t_win	menu;
 	unsigned int score;
 	unsigned int screen_x;
 	unsigned int screen_y;
@@ -113,3 +114,11 @@ void		cleanup_ncurses(t_board *board);
 // debug functions
 void		debug_print(t_board *board);
 void		debug_move(t_board *board);
+
+
+t_result	write_score_to_file(t_board *board);
+
+//utils
+unsigned int	get_center_pos(t_win *win, unsigned int size);
+void		print_centered(t_win *win, int row, const char *str);
+void		print_centered_number(t_win *win, int row, unsigned int number);
