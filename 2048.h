@@ -30,6 +30,7 @@
 #define MIN_TILE_X 6
 #define MIN_TILE_Y 3
 #define MIN_TILE_SPACING 1
+#define MIN_SCORE_X 16
 
 enum e_const
 {
@@ -65,6 +66,8 @@ typedef struct board
 	unsigned int score;
 	unsigned int screen_x;
 	unsigned int screen_y;
+	unsigned int min_screen_x;
+	unsigned int min_screen_y;
 
 	unsigned int top_scores[SCORE_LIST_SIZE];
 
@@ -85,16 +88,22 @@ typedef enum e_result
 	NCURSES_FAILED,
 	WIN_VALUE_ERROR,
 	SCORE_LIST_SIZE_ERROR,
+	USER_EXIT,
 }	t_result;
 
 //init
+t_result	setup_ncurses(t_board *board);
 t_result	init_score(t_board *board);
 void		init_board(t_board *board);
 
 // ncusrses
-t_result	init_ncurses(t_board *board);
 void		update_board(t_board *board);
 void		update_score(t_board *board);
+t_result	resize_window(t_board *board, int ch);
+t_result	menu(t_board *board);
+t_result board_size_check(t_board *board);
+t_result	window_resize_loop(t_board *board);
+t_result	setup_windows_error(t_board *board);
 
 // main game logic
 void		game_loop(t_board *board);

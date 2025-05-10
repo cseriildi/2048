@@ -12,6 +12,7 @@ SRCS = main.c \
 		init_visual.c \
 		cleanup.c \
 		visual_menu.c \
+		visual_resize.c \
 
 CC = cc
 

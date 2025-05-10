@@ -19,11 +19,11 @@ void cleanup_ncurses(t_board *board)
 		delwin(board->score_win.win);
 		board->score_win.win = NULL;
 	}
-	if (stdscr != NULL)
-	{
-		delwin(stdscr);
-		stdscr = NULL;
-	}
+	// if (stdscr != NULL)
+	// {
+	// 	delwin(stdscr);
+	// 	stdscr = NULL;
+	// }
 	endwin();
 }
 

@@ -21,16 +21,41 @@ static void update_menu(t_win *menu)
 	wrefresh(menu->win);
 }
 
+void	init_menu(t_board *board, t_win *menu)
+{
+	menu->size_x = MENU_WIDTH;
+	menu->size_y = MENU_HEIGHT;
+	menu->win = newwin(menu->size_y, menu->size_x,
+			board->screen_y / 2 - menu->size_y / 2,	// position y
+			board->screen_x / 2 - menu->size_x / 2);	// position x
+}
+
+static t_result	resize_menu(t_board *board, t_win *menu)
+{
+	t_result res;
+	delwin(menu->win);
+	erase();
+	refresh();
+	cleanup_ncurses(board);
+	// t_result res = init_ncurses(board);
+	// if (res != SUCCESS)
+	// 	return res;
+	
+	if ((res = window_resize_loop(board)) != SUCCESS)
+	{
+		return res;
+	}
+	init_menu(board, menu);
+	keypad(menu->win, TRUE);
+	return SUCCESS;
+}
+
 t_result menu(t_board *board)
 {
 	t_win menu = {0};
+	t_result res;
 
-	menu.size_x = MENU_WIDTH;
-	menu.size_y = MENU_HEIGHT;
-	menu.win = newwin(menu.size_y, menu.size_x,
-			board->screen_y / 2 - menu.size_y / 2,	// position y
-			board->screen_x / 2 - menu.size_x / 2);	// position x
-
+	init_menu(board, &menu);
 	if (menu.win == NULL)
 		return NCURSES_FAILED;
 	update_menu(&menu);
@@ -46,6 +71,13 @@ t_result menu(t_board *board)
 		{
 			delwin(menu.win);
 			return 1;
+		}
+		else if (ch == KEY_RESIZE)
+		{
+			if ((res = resize_menu(board, &menu)) != SUCCESS)
+			{
+				return res;
+			}
 		}
 		update_menu(&menu);
 		ch = wgetch(menu.win);
