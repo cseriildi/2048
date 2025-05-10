@@ -74,13 +74,11 @@ static bool	simulate_merge_found(
 
 static bool	merge_left_sim(t_board *board, int x, int y)
 {
-	// printf("calling %s @ (%i,%i):%i\n", __func__, x, y, board->tiles[y][x].number);
 	int i = x + 1;
 	if (i < board->size)
 	{
 		if (board->tiles[y][i].number == board->tiles[y][x].number)
 		{
-			// printf("merging left %i @ (%i,%i)\n", board->tiles[y][i].number, x, y);
 			return (true);
 		}
 	}
@@ -89,13 +87,11 @@ static bool	merge_left_sim(t_board *board, int x, int y)
 
 static bool	merge_right_sim(t_board *board, int x, int y)
 {
-	// printf("calling %s @ (%i,%i):%i\n", __func__, x, y, board->tiles[y][x].number);
 	int i = x - 1;
 	if (i >= 0)
 	{
 		if (board->tiles[y][i].number == board->tiles[y][x].number)
 		{
-			// printf("merging right %i @ (%i,%i)\n", board->tiles[y][i].number, x, y);
 			return (true);
 		}
 	}
@@ -104,13 +100,11 @@ static bool	merge_right_sim(t_board *board, int x, int y)
 
 static bool	merge_up_sim(t_board *board, int x, int y)
 {
-	// printf("calling %s @ (%i,%i):%i\n", __func__, x, y, board->tiles[y][x].number);
 	int i = y + 1;
 	if (i < board->size)
 	{
 		if (board->tiles[i][x].number == board->tiles[y][x].number)
 		{
-			// printf("merging up %i @ (%i,%i)\n", board->tiles[i][x].number, x, y);
 			return (true);
 		}
 	}
@@ -119,13 +113,11 @@ static bool	merge_up_sim(t_board *board, int x, int y)
 
 static bool	merge_down_sim(t_board *board, int x, int y)
 {
-	// printf("calling %s @ (%i,%i):%i\n", __func__, x, y, board->tiles[y][x].number);
 	int i = y - 1;
 	if (i >= 0)
 	{
 		if (board->tiles[i][x].number == board->tiles[y][x].number)
 		{
-			// printf("merging down %i @ (%i,%i)\n", board->tiles[i][x].number, x, y);
 			return (true);
 		}
 	}
