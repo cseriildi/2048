@@ -8,7 +8,8 @@ SRCS = main.c \
 		logic_move.c \
 		logic_merge.c \
 		logic_helper.c \
-		logic_gameover.c
+		logic_gameover.c \
+		init_visual.c \
 
 CC = cc
 
