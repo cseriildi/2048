@@ -19,7 +19,6 @@ static void update_menu(t_win *menu)
 		if (i == menu->scroll_offset) {
 			wattron(menu->win, A_REVERSE);
 		}
-		//TODO: get rid of hardcoded values
 		print_centered(menu, ROW_TITLE + 3 + i, options[i]);
 		wattroff(menu->win, A_REVERSE);
 	}
@@ -28,6 +27,7 @@ static void update_menu(t_win *menu)
 
 void	init_menu(t_board *board)
 {
+	board->menu.scroll_offset = 0;
 	board->menu.size_x = MENU_WIDTH;
 	board->menu.size_y = MENU_HEIGHT;
 	board->menu.win = newwin(board->menu.size_y, board->menu.size_x,
@@ -60,8 +60,8 @@ t_result menu(t_board *board)
 	t_result res;
 
 	init_menu(board);
-	// -- here
-	board->menu.scroll_offset = 0;
+	if (board->menu.win == NULL)
+		return NCURSES_FAILED;
 	update_menu(&board->menu);
 	keypad(board->menu.win, TRUE);
 
@@ -73,17 +73,10 @@ t_result menu(t_board *board)
 		else if (ch == KEY_DOWN)
 			board->menu.scroll_offset = 1;
 		else if (ch == ESCAPE)
-		{
-			delwin(board->menu.win);
-			return 1;
-		}
-		else if (ch == KEY_RESIZE)
-		{
-			if ((res = resize_menu(board)) != SUCCESS)
-			{
-				return res;
-			}
-		}
+			return USER_EXIT;
+		else if (ch == KEY_RESIZE && (res = resize_menu(board)) != SUCCESS)
+			return res;
+		
 		update_menu(&board->menu);
 		ch = wgetch(board->menu.win);
 	}
