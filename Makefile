@@ -45,7 +45,7 @@ $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR) $(DEPS_DIR)
 $(NAME): $(OBJS)
 	@printf "$(ITALIC)"
 	@${MAKE} -C ./libft --no-print-directory
-	$(CC) $(CFLAGS) ./libft/libft.a -o $(NAME) $(OBJS) $(NCURSES_FLAGS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) ./libft/libft.a $(NCURSES_FLAGS)
 	@echo "$(GREEN)Executable: ./$(NAME)$(RESET)"
 
 -include $(DEPS)

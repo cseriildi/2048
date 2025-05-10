@@ -64,6 +64,7 @@ void update_board(t_board *board)
 			wclear(tile.win.win);
 			wbkgd(tile.win.win, COLOR_PAIR(tile.win.color));
 			if (tile.number != 0)
+			//TODO: center the number
 				mvwprintw(tile.win.win, 1, 2, "%d", tile.number);
 			wrefresh(tile.win.win);
 		}
@@ -72,8 +73,32 @@ void update_board(t_board *board)
 
 void update_score(t_board *board)
 {
-	//TODO: read the score from a file
 	//TODO: add the current player's score
+	wclear(board->score_win.win);
+	//TODO: check window size, maybe add title
+	mvwprintw(board->score_win.win, 1, 1, "Top Scores");
+	unsigned int i = 0;
+	unsigned int j = 2;
+	while  (j < board->score_win.size_y && board->score < board->top_scores[i])
+	{
+		if (board->top_scores[i] == 0)
+			break;
+		mvwprintw(board->score_win.win, j++, 1, "%d", board->top_scores[i++]);
+	}
+	if (j < board->score_win.size_y)
+	{
+		wattron(board->score_win.win, A_REVERSE);
+		mvwprintw(board->score_win.win, j++, 1, "%d", board->score);
+		wattroff(board->score_win.win, A_REVERSE);
+	}
+	while  (j < board->score_win.size_y)
+	{
+		if (board->top_scores[i] == 0)
+			break;
+		mvwprintw(board->score_win.win, j++, 1, "%d", board->top_scores[i++]);
+
+	}
+	
 	box(board->score_win.win, 0, 0);
 	wrefresh(board->score_win.win);
 }
@@ -104,7 +129,12 @@ int init_ncurses(t_board *board)
 		return 1; //TODO: define error codes
 
 	//TODO: formula for resizing
-	board->score_win.win = newwin(board->screen_y, board->screen_x - (board->size * 8) , 0, board->size * 8);
+	board->score_win.size_x = board->screen_x - (board->size * 8);
+	board->score_win.size_y = board->screen_y;
+	board->score_win.pos_x = board->size * 8;
+	board->score_win.pos_y = 0;
+	board->score_win.win = newwin(board->score_win.size_y,  board->score_win.size_x, 
+			board->score_win.pos_y, board->score_win.pos_x);
 	if (board->score_win.win == NULL)
 		return 1;
 	
@@ -119,8 +149,6 @@ int init_ncurses(t_board *board)
 			board->tiles[i][j].win.color = 1; //TODO: dynamic coloring based on value
 		}
 	}
-	update_board(board);
-	update_score(board);
 	return 0;
 }
 

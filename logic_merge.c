@@ -3,6 +3,7 @@
 static void	merge_helper(t_board *board, int x, int y)
 {
 	board->tiles[y][x].number *= 2;
+	board->score += board->tiles[y][x].number;
 	if (board->tiles[y][x].number == WIN_VALUE)
 		board->win = true;
 	board->empty_tiles++;
