@@ -124,11 +124,11 @@ void game_loop(t_board *board)
 {
 	keypad(board->score_win.win, TRUE);
 	int ch;
+	spawn_number(board);
+	spawn_number(board);
+	update_board(board);
 	while ((ch = wgetch(board->score_win.win)) != ESCAPE)
 	{
-		if (board->empty_tiles != 0)
-			spawn_number(board);
-
 		if (ch == KEY_UP)
 			exec_move(board, UP);
 		else if (ch == KEY_DOWN)
@@ -137,6 +137,8 @@ void game_loop(t_board *board)
 			exec_move(board, LEFT);
 		else if (ch == KEY_RIGHT)
 			exec_move(board, RIGHT);
+		if (board->empty_tiles != 0)
+			spawn_number(board);
 		update_board(board);
 		//TODO: game over check
 	}
