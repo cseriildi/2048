@@ -1,5 +1,4 @@
 #include "2048.h"
-#include <fcntl.h>
 
 void init_board(t_board *board)
 {
@@ -19,19 +18,17 @@ void init_board(t_board *board)
 	board->spawn = true;
 	spawn_number(board);
 	update_board(board);
+	update_score(board);
 }
 
-int init_score(t_board *board)
+t_result init_score(t_board *board)
 {
 	if (SCORE_LIST_SIZE <= 0)
-		return 0;
-	int fd = open(SCORE_FILE, O_RDWR | O_CREAT, 0644);
-	if (fd == -1)
-	{
-		//TODO: print later
-		ft_putstr_fd("Can't open file: " SCORE_FILE, fd);
-		return 1;
-	}
+		return SCORE_LIST_SIZE_ERROR;
+	int fd = open(SCORE_FILE, O_RDONLY | O_CREAT, 0644);
+	if ((fd) == -1)
+		return CANT_OPEN_FILE;
+	
 	char *line = NULL;
 	unsigned int score = 0;
 	// either of those lines fixes it
@@ -59,21 +56,6 @@ int init_score(t_board *board)
 		}
 		free(line);
 	}
-	close(fd);
-	update_score(board);
-	return 0;
-}
-
-int write_score_to_file(t_board *board)
-{
-	int fd = open(SCORE_FILE, O_WRONLY | O_APPEND | O_CREAT, 0644);
-	if (fd == -1)
-	{
-		//TODO: print error after closing ncurses
-		return 1;
-	}
-	ft_putnbr_fd(board->score, fd);
-	ft_putchar_fd('\n', fd);
 	close(fd);
 	return 0;
 }

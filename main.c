@@ -4,22 +4,29 @@
 int main(void)
 {
 	t_board board = {0};
+	t_result result = SUCCESS;
 
 	//TODO: check WIN_VALUE " This value is taken into account only if it is a power of 2"
-	
+	if (false) //WIN_VALUE not power of 2
+		return print_error(WIN_VALUE_ERROR);
+
 	//TODO: print instructions
 	
 	//TODO: ascii art for numbers
 	
-	if (init_ncurses(&board) == 1)
+	if ((result = init_score(&board)) != SUCCESS)
+		return print_error(result);
+
+	if ((result = init_ncurses(&board)) != SUCCESS)
 	{
 		cleanup_ncurses(&board);
-		return 0;
+		return print_error(result);
 	}
 	
 	init_board(&board);
-	init_score(&board);
 	game_loop(&board);
 	cleanup_ncurses(&board);
-	return 0;
+	result = write_score_to_file(&board);
+
+	return result;
 }

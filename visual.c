@@ -49,22 +49,3 @@ void update_score(t_board *board)
 	box(board->score_win.win, 0, 0);
 	wrefresh(board->score_win.win);
 }
-
-void cleanup_ncurses(t_board *board)
-{
-	for (int i = 0; i < board->size; i++)
-	{
-		for (int j = 0; j < board->size; j++)
-		{
-			if (board->tiles[i][j].win.win != NULL)
-				delwin(board->tiles[i][j].win.win);
-		}
-	}
-
-	if (board->score_win.win != NULL)
-		delwin(board->score_win.win);
-	if (stdscr != NULL)
-		delwin(stdscr);
-	endwin();
-}
-
