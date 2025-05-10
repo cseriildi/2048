@@ -24,7 +24,7 @@ static bool is_valid_score(char *score)
 {
 	for (int i = 0; score[i] != '\n'; i++)
 	{
-		if (i > 5 || !isdigit(score[i]))
+		if (i > 5 || !ft_isdigit(score[i]))
 			return false;
 	}
 	return true;

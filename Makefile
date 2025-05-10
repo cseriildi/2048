@@ -2,7 +2,6 @@ NAME = 2048
 
 SRCS = main.c \
 		logic.c \
-		debug.c \
 		init.c \
 		logic_move.c \
 		logic_merge.c \
@@ -13,6 +12,7 @@ SRCS = main.c \
 		visual_menu.c \
 		visual_resize.c \
 		visual_setup.c \
+		#debug.c 
 
 CC = cc
 

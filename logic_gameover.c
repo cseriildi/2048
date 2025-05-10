@@ -1,61 +1,35 @@
 #include "2048.h"
 
-static bool	is_move_possible(t_board *board);
-static bool	simulate_merge_found(
-				t_board *board,
-				t_direction dir,
-				bool (*merge)(t_board *, int, int));
-static bool	merge_left_sim(t_board *board, int x, int y);
-static bool	merge_right_sim(t_board *board, int x, int y);
-static bool	merge_up_sim(t_board *board, int x, int y);
-static bool	merge_down_sim(t_board *board, int x, int y);
-
-void	check_game_over(t_board *board)
-{
-	if (board->empty_tiles == 0)
-	{
-		if (!is_move_possible(board))
-		{
-			board->game_over = true;
-			box(board->menu.win, 0, 0);
-			wattron(board->menu.win, A_BOLD);
-			print_centered(&board->menu, 1, "Game Over!");
-			print_centered(&board->menu, 2, "Your score is");
-			print_centered_number(&board->menu, 3, board->score);
-			wattroff(board->menu.win, A_BOLD);
-			wrefresh(board->menu.win);
-		}
-	}
+static bool	merge_left_sim(t_board *board, int x, int y) {
+	return (x + 1 < board->size && board->tiles[y][x + 1].number == board->tiles[y][x].number);
 }
 
-static bool	is_move_possible(t_board *board)
-{
-	if (simulate_merge_found(board, LEFT, merge_left_sim))
-		return (true);
-	if (simulate_merge_found(board, RIGHT, merge_right_sim))
-		return (true);
-	if (simulate_merge_found(board, UP, merge_up_sim))
-		return (true);
-	if (simulate_merge_found(board, DOWN, merge_down_sim))
-		return (true);
-	return (false);
+static bool	merge_right_sim(t_board *board, int x, int y) {
+	return (x - 1 >= 0 && board->tiles[y][x - 1].number == board->tiles[y][x].number);
+}
+
+static bool	merge_up_sim(t_board *board, int x, int y) {
+	return (y + 1 < board->size && board->tiles[y + 1][x].number == board->tiles[y][x].number);
+}
+
+static bool	merge_down_sim(t_board *board, int x, int y) {
+	return (y - 1 >= 0 && board->tiles[y - 1][x].number == board->tiles[y][x].number);
 }
 
 static bool	simulate_merge_found(
-				t_board *board,
-				t_direction dir,
-				bool (*merge)(t_board *, int, int))
+	t_board *board,
+	t_direction dir,
+	bool (*merge)(t_board *, int, int))
 {
-	// loop for moving left and up
+		// loop for moving left and up
 	if (dir == LEFT || dir == UP)
 	{
 		for (int x = 0; x < board->size; x++)
 		{
 			for (int y = 0; y < board->size; y++)
 			{
-				if (merge && board->tiles[y][x].number > 0)
-					if (merge(board, x, y))
-						return (true);
+				if (merge && board->tiles[y][x].number > 0 && merge(board, x, y))
+				return (true);
 			}
 		}
 	}
@@ -66,63 +40,33 @@ static bool	simulate_merge_found(
 		{
 			for (int y = board->size - 1; y >= 0; y--)
 			{
-				if (merge && board->tiles[y][x].number > 0)
-					if (merge(board, x, y))
-						return (true);
+				if (merge && board->tiles[y][x].number > 0 && merge(board, x, y))
+				return (true);
 			}
 		}
 	}
 	return (false);
 }
 
-static bool	merge_left_sim(t_board *board, int x, int y)
+static bool	is_move_possible(t_board *board)
 {
-	int i = x + 1;
-	if (i < board->size)
-	{
-		if (board->tiles[y][i].number == board->tiles[y][x].number)
-		{
-			return (true);
-		}
-	}
-	return (false);
+	return (simulate_merge_found(board, LEFT, merge_left_sim)
+		|| simulate_merge_found(board, RIGHT, merge_right_sim)
+		|| simulate_merge_found(board, UP, merge_up_sim)
+		|| simulate_merge_found(board, DOWN, merge_down_sim));
 }
 
-static bool	merge_right_sim(t_board *board, int x, int y)
+void	check_game_over(t_board *board)
 {
-	int i = x - 1;
-	if (i >= 0)
+	if (!board->game_over && board->empty_tiles == 0 && !is_move_possible(board))
 	{
-		if (board->tiles[y][i].number == board->tiles[y][x].number)
-		{
-			return (true);
-		}
+		board->game_over = true;
+		box(board->menu.win, 0, 0);
+		wattron(board->menu.win, A_BOLD);
+		print_centered(&board->menu, 1, GAME_OVER1);
+		print_centered(&board->menu, 2, GAME_OVER2);
+		print_centered_number(&board->menu, 3, board->score);
+		wattroff(board->menu.win, A_BOLD);
+		wrefresh(board->menu.win);
 	}
-	return (false);
-}
-
-static bool	merge_up_sim(t_board *board, int x, int y)
-{
-	int i = y + 1;
-	if (i < board->size)
-	{
-		if (board->tiles[i][x].number == board->tiles[y][x].number)
-		{
-			return (true);
-		}
-	}
-	return (false);
-}
-
-static bool	merge_down_sim(t_board *board, int x, int y)
-{
-	int i = y - 1;
-	if (i >= 0)
-	{
-		if (board->tiles[i][x].number == board->tiles[y][x].number)
-		{
-			return (true);
-		}
-	}
-	return (false);
 }

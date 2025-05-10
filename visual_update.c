@@ -22,7 +22,11 @@ void update_board(t_board *board)
 				tile.win.color = ft_sqrt(tile.number) + 1;
 				wbkgd(tile.win.win, COLOR_PAIR(tile.win.color));
 			}
+			else
+				box(tile.win.win, 0, 0);
+
 			if (tile.number != 0)
+				//TODO: ascii art for numbers
 				print_centered_number(&tile.win, tile.win.size_y / 2, tile.number);
 			wrefresh(tile.win.win);
 		}
@@ -39,24 +43,19 @@ void update_score(t_board *board)
 
 	unsigned int i = 0;
 	unsigned int j = 2;
-	while  (j < board->score_win.size_y && board->score < board->top_scores[i])
-	{
-		if (board->top_scores[i] == 0)
-			break;
+	while  (j < board->score_win.size_y
+			&& board->score < board->top_scores[i]
+			&& board->top_scores[i] != 0)
 		print_centered_number(&board->score_win, j++, board->top_scores[i++]);
-	}
+
 	if (j < board->score_win.size_y)
 	{
 		wattron(board->score_win.win, A_REVERSE);
 		print_centered_number(&board->score_win, j++, board->score);
 		wattroff(board->score_win.win, A_REVERSE);
 	}
-	while  (j < board->score_win.size_y)
-	{
-		if (board->top_scores[i] == 0)
-			break;
+	while  (j < board->score_win.size_y && board->top_scores[i] != 0)
 		print_centered_number(&board->score_win, j++, board->top_scores[i++]);
-	}
 	
 	box(board->score_win.win, 0, 0);
 	wrefresh(board->score_win.win);

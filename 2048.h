@@ -31,6 +31,8 @@
 #define MIN_TILE_Y 3
 #define MIN_TILE_SPACING 1
 #define MIN_SCORE_X 16
+#define GAME_OVER1 "Game Over!"
+#define GAME_OVER2 "Your score is"
 
 enum e_const
 {

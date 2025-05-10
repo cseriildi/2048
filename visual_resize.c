@@ -2,8 +2,6 @@
 
 t_result	resize_gameloop(t_board *board, int ch)
 {
-	t_result	res;
-
 	if (ch != KEY_RESIZE)
 		return SUCCESS;
 	erase();
@@ -11,14 +9,16 @@ t_result	resize_gameloop(t_board *board, int ch)
 	cleanup_ncurses(board);
 	// res = setup_ncurses(board);
 	// printf("resizing window to %i x %i\n", board->screen_x, board->screen_y);
-	if ((res = window_size_check(board)) != SUCCESS)
-		return res;
-	if ((res = setup_windows_error(board)) != SUCCESS)
-		return res;
-	keypad(board->score_win.win, TRUE);
-	update_board(board);
-	update_score(board);
-	return SUCCESS;
+
+	t_result	res = SUCCESS;
+	if ((res = window_size_check(board)) == SUCCESS
+		&& (res = setup_windows_error(board)) == SUCCESS)
+	{	
+		keypad(board->score_win.win, TRUE);
+		update_board(board);
+		update_score(board);
+	}
+	return res;
 }
 
 // t_result 	board_size_check(t_board *board)
@@ -33,11 +33,8 @@ static t_result window_too_small_loop(t_board *board)
 			board->screen_x, board->screen_y,
 			board->min_screen_x, board->min_screen_y);
 		refresh();
-		int ch = getch();
-		if (ch == ESCAPE)
-			return (USER_EXIT); // this needs proper exit cleanup code
-		// else if (ch != KEY_RESIZE)
-		// 	return (SUCCESS);
+		if (getch() == ESCAPE)
+			return (USER_EXIT);
 		getmaxyx(stdscr, board->screen_y, board->screen_x);
 		keypad(stdscr, FALSE);
 	}
