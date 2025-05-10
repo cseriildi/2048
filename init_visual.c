@@ -64,19 +64,17 @@ t_result init_ncurses(t_board *board)
 	curs_set(0); // hide CLI cursor
 	ESCDELAY = 25;
 
-	if (has_colors()) //TODO: flag to not try to color the tiles
+	if (has_colors())
 	{
 		start_color();
-		//TODO: select colors for numbers
-		init_pair(1, COLOR_WHITE, COLOR_BLUE);
-		init_pair(2, COLOR_WHITE, COLOR_GREEN);
-		init_pair(3, COLOR_WHITE, COLOR_YELLOW);
-		init_pair(4, COLOR_WHITE, COLOR_CYAN);
-		init_pair(5, COLOR_WHITE, COLOR_MAGENTA);
-		init_pair(6, COLOR_WHITE, COLOR_RED);
-		init_pair(7, COLOR_BLACK, COLOR_WHITE);
+		//TODO: select final colors
+		short blue_shades[20] = {
+			231, 189, 153, 117, 111, 110, 109, 81, 80, 79,
+			74, 73, 72, 67, 66, 65, 60, 25, 24, 18
+		};
+		for (int i = 0; i < 20; ++i)
+			init_pair(i + 1, COLOR_BLACK, blue_shades[i]);
 	}
-
 	getmaxyx(stdscr, board->screen_y, board->screen_x); //TODO: check if screen is big enough
 	if ((result = menu(board)) != SUCCESS)
 		return result;
@@ -98,8 +96,7 @@ t_result init_ncurses(t_board *board)
 			//TODO: formula for resizing
 			board->tiles[i][j].win.win = newwin(3, 6, i * (3 + 1) + 1, j * (6 + 2) + 1);
 			if (board->tiles[i][j].win.win == NULL)
-				return 1;
-			board->tiles[i][j].win.color = 1; //TODO: dynamic coloring based on value
+				return NCURSES_FAILED;
 		}
 	}
 	return SUCCESS;
