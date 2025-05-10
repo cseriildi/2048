@@ -7,7 +7,8 @@ SRCS = main.c \
 		init.c \
 		logic_move.c \
 		logic_merge.c \
-		logic_helper.c
+		logic_helper.c \
+		logic_gameover.c
 
 CC = cc
 

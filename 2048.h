@@ -37,6 +37,8 @@ typedef struct tile
 typedef struct board
 {
 	bool 	game_over;
+	bool 	win;
+	bool	spawn;
 	short 	size;
 	int  	empty_tiles;
 	t_tile	tiles[MAX_SIZE][MAX_SIZE];
@@ -63,6 +65,7 @@ void	update_board(t_board *board);
 // main game logic
 void	init_board(t_board *board);
 void	game_loop(t_board *board);
+void	check_game_over(t_board *board);
 // number spawning
 void	spawn_number(t_board *board);
 // move and merge handler
