@@ -1,5 +1,7 @@
 #pragma once
 
+# include "libft/libft.h"
+
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h> // TODO: remove
