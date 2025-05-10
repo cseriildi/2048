@@ -11,9 +11,9 @@ void	spawn_number(t_board *board)
 		number = 2;
 	else
 		number = 4;
-	for (int x = 0; x < 5; x++)
+	for (int x = 0; x < board->size; x++)
 	{
-		for (int y = 0; y < 5; y++)
+		for (int y = 0; y < board->size; y++)
 		{
 			if (board->tiles[y][x].number == 0)
 			{
@@ -51,9 +51,9 @@ static void	traverse_board(t_board *board, t_direction dir,
 	// loop for moving left and up
 	if (dir == LEFT || dir == UP)
 	{
-		for (int x = 0; x < 5; x++)
+		for (int x = 0; x < board->size; x++)
 		{
-			for (int y = 0; y < 5; y++)
+			for (int y = 0; y < board->size; y++)
 			{
 				move_and_merge(board, x, y, move, merge);
 			}
@@ -62,9 +62,9 @@ static void	traverse_board(t_board *board, t_direction dir,
 	// loop for moving right and down
 	else
 	{
-		for (int x = 4; x >= 0; x--)
+		for (int x = board->size - 1; x >= 0; x--)
 		{
-			for (int y = 4; y >= 0; y--)
+			for (int y = board->size - 1; y >= 0; y--)
 			{
 				move_and_merge(board, x, y, move, merge);
 			}
@@ -75,9 +75,9 @@ static void	traverse_board(t_board *board, t_direction dir,
 
 static void	reset_merged(t_board *board)
 {
-	for (int x = 0; x < 5; x++)
+	for (int x = 0; x < board->size; x++)
 	{
-		for (int y = 0; y < 5; y++)
+		for (int y = 0; y < board->size; y++)
 		{
 			board->tiles[y][x].merged = false;
 		}

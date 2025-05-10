@@ -3,7 +3,7 @@
 void	move_left(t_board *board, int x, int y)
 {
 	// printf("calling %s @ (%i,%i):%i\n", __func__, x, y, board->tiles[y][x].number);
-	for (int i = x; i < 5; i++)
+	for (int i = x; i < board->size; i++)
 	{
 		if (board->tiles[y][i].number > 0)
 		{
@@ -48,7 +48,7 @@ void	move_down(t_board *board, int x, int y)
 void	move_up(t_board *board, int x, int y)
 {
 	// printf("calling %s @ (%i,%i):%i\n", __func__, x, y, board->tiles[y][x].number);
-	for (int i = y; i < 5; i++)
+	for (int i = y; i < board->size; i++)
 	{
 		if (board->tiles[i][x].number > 0)
 		{
