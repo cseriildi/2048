@@ -9,9 +9,9 @@ static void update_menu(t_win *menu)
 		// 	"%s", options[i]);
 	box(menu->win, 0, 0);
 	wattron(menu->win, A_BOLD); 
-	print_centered(menu, 1, MENU_TITLE);
+	print_centered(menu, ROW_TITLE, MENU_TITLE);
 	wattroff(menu->win, A_BOLD); 
-	print_centered(menu, 1, MENU_INFO);
+	print_centered(menu, ROW_TITLE + 1, MENU_INFO);
 
 	const char *options[MAX_SIZE_OPTIONS] = {"4 x 4", "5 x 5"};
 	
@@ -20,7 +20,7 @@ static void update_menu(t_win *menu)
 			wattron(menu->win, A_REVERSE);
 		}
 		//TODO: get rid of hardcoded values
-		print_centered(menu, 3 + i, options[i]);
+		print_centered(menu, ROW_TITLE + 3 + i, options[i]);
 		wattroff(menu->win, A_REVERSE);
 	}
 	wrefresh(menu->win);
