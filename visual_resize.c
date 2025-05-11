@@ -57,9 +57,12 @@ t_result	window_size_check(t_board *board)
 {
 	t_result res;
 	getmaxyx(stdscr, board->screen_y, board->screen_x);
-	unsigned int min_board_x = MAX_BOARD_SIZE * (MIN_TILE_X + MIN_TILE_SPACING * 2);
-	board->min_screen_x = min_board_x + MIN_SCORE_X + WINDOW_SPACING;
-	board->min_screen_y = MAX_BOARD_SIZE * (MIN_TILE_Y + MIN_TILE_SPACING) + 1;
+
+	unsigned int min_size = board->size ? board->size : MIN_BOARD_SIZE;
+
+	unsigned int min_board_x = min_size * (MIN_TILE_X + MIN_TILE_SPACING * 2);
+	board->min_screen_x = min_board_x + MIN_SCORE_X + WINDOW_SPACING * 3;
+	board->min_screen_y = min_size * (MIN_TILE_Y + MIN_TILE_SPACING) + 1;
 	res = window_too_small_loop(board);
 	wbkgd(stdscr, COLOR_PAIR(0));
 	if (res == SUCCESS)

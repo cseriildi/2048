@@ -37,7 +37,7 @@ static void print_centered_str_number(t_win *win, int row, char *str, unsigned i
 
 void print_stats(t_board *board)
 {	
-	unsigned int row = board->score_win.size_y + MAX_TILE_PRINT_START;
+	unsigned int row = board->score_win.size_y + MAX_TILE_PRINT_START + 1;
 	wattron(board->score_win.win, A_BOLD);
 
 	if (board->win || board->game_over)

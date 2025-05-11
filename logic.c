@@ -65,7 +65,6 @@ void game_loop(t_board *board)
 	while ((ch = wgetch(board->score_win.win)) != ESCAPE
 		&& resize_gameloop(board, ch) == SUCCESS)
 	{
-		check_game_over(board);
 		if (!board->game_over)
 		{
 			if (ch == KEY_UP)
@@ -77,7 +76,7 @@ void game_loop(t_board *board)
 			else if (ch == KEY_RIGHT)
 				exec_move(board, RIGHT);
 			else
-			 	continue;
+				continue;
 
 			if (board->spawn)
 			{	
@@ -86,5 +85,6 @@ void game_loop(t_board *board)
 				update_score(board);
 			}
 		}
+		check_game_over(board);
 	}
 }
