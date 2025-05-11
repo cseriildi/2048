@@ -16,6 +16,7 @@
 #define ESCAPE 27
 
 #define MAX_BOARD_SIZE 5
+#define MIN_BOARD_SIZE 4
 #define MAX_SIZE_OPTIONS 2
 
 #define SCORE_FILE_4 "scores_4.txt"

@@ -74,5 +74,6 @@ t_result get_grid_size(t_board *board)
 	board->size = (board->menu.scroll_offset == 0) ? 4 : 5;
 	wclear(board->menu.win);
 	wrefresh(board->menu.win);
+	window_size_check(board);
 	return SUCCESS;
 }
