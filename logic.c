@@ -5,8 +5,6 @@ void	spawn_number(t_board *board)
 	short tile;
 	short number;
 	
-	if (!board->spawn)
-		return ;
 	tile =  rand() % board->empty_tiles;
 	
 	number = (rand() % 10 == 0) ? 4 : 2;
@@ -82,18 +80,19 @@ void game_loop(t_board *board)
 				exec_move(board, LEFT);
 			else if (ch == KEY_RIGHT)
 				exec_move(board, RIGHT);
-			else if (ch == 'g')
+			else if (ch == 'g') //TODO: remove
 				board->game_over = true;
-			else if (ch == 'w')
+			else if (ch == 'w') //TODO: remove
 				board->score = WIN_VALUE;
 			else
 			 	continue;
 
-			if (board->empty_tiles != 0)
+			if (board->spawn)
+			{	
 				spawn_number(board);
-			//TODO: it would be nice if we would only update if anything changed (flashing printing when arrows are stuck)
-			update_board(board);
-			update_score(board);
+				update_board(board);
+				update_score(board);
+			}
 		}
 	}
 }
