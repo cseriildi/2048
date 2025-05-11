@@ -36,16 +36,16 @@ void init_board(t_board *board)
 	update_board(board);
 	update_score(board);
 }
+
 static bool is_valid_score(char *score)
 {
 	for (int i = 0; score[i] != '\n'; i++)
 	{
-		if (i > 5 || !ft_isdigit(score[i]))
+		if (i > 8 || !ft_isdigit(score[i]))
 			return false;
 	}
 	return true;
 }
-
 
 t_result init_score(t_board *board)
 {
@@ -57,7 +57,7 @@ t_result init_score(t_board *board)
 	
 	char *line = NULL;
 	unsigned int score = 0;
-	// either of those lines fixes it
+
 	ft_memset(board->top_scores, 0, sizeof(board->top_scores));
 	// ft_memcpy(board->top_scores, (unsigned int[SCORE_LIST_SIZE]){0}, sizeof(board->top_scores));
 	while ((line = get_next_line(fd)) != NULL)
