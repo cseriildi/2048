@@ -5,14 +5,10 @@ void	spawn_number(t_board *board)
 	short tile;
 	short number;
 	
-	if (!board->spawn)
-		return ;
-	tile =  rand() % (board->empty_tiles);
-	number = rand() % 10;
-	if (number < 9)
-		number = 2;
-	else
-		number = 4;
+	tile =  rand() % board->empty_tiles;
+	
+	number = (rand() % 10 == 0) ? 4 : 2;
+
 	for (int x = 0; x < board->size; x++)
 	{
 		for (int y = 0; y < board->size; y++)
@@ -37,31 +33,28 @@ void	exec_move(t_board *board, t_direction dir)
 	void	(*move)(t_board *, int, int);
 	void	(*merge)(t_board *, int, int);
 
-	if (dir == UP)
+	switch (dir)
 	{
+	case UP:
 		move = move_up;
 		merge = merge_up;
-	}
-	else if (dir == DOWN)
-	{
+		break;
+	case DOWN:
 		move = move_down;
 		merge = merge_down;
-	}
-	else if (dir == LEFT)
-	{
+		break;
+	case LEFT:
 		move = move_left;
 		merge = merge_left;
-	}
-	else if (dir == RIGHT)
-	{
+		break;
+	case RIGHT:
 		move = move_right;
 		merge = merge_right;
-	}
-	else
-	{
-		printf("Invalid direction\n");
+		break;
+	default:
 		return ;
 	}
+
 	traverse_board(board, dir, move, NULL);
 	traverse_board(board, dir, NULL, merge);
 	traverse_board(board, dir, move, NULL);
@@ -70,9 +63,11 @@ void	exec_move(t_board *board, t_direction dir)
 
 void game_loop(t_board *board)
 {
+	//TODO: print instructions
 	keypad(board->score_win.win, TRUE);
 	int ch;
-	while ((ch = wgetch(board->score_win.win)) != ESCAPE)
+	while ((ch = wgetch(board->score_win.win)) != ESCAPE
+		&& resize_gameloop(board, ch) == SUCCESS)
 	{
 		check_game_over(board);
 		if (!board->game_over)
@@ -85,16 +80,19 @@ void game_loop(t_board *board)
 				exec_move(board, LEFT);
 			else if (ch == KEY_RIGHT)
 				exec_move(board, RIGHT);
-			if (board->empty_tiles != 0)
+			else if (ch == 'g') //TODO: remove
+				board->game_over = true;
+			else if (ch == 'w') //TODO: remove
+				board->score = WIN_VALUE;
+			else
+			 	continue;
+
+			if (board->spawn)
+			{	
 				spawn_number(board);
-			update_board(board);
-			update_score(board);
+				update_board(board);
+				update_score(board);
+			}
 		}
-		if (resize_gameloop(board, ch) != SUCCESS)
-			break ;
-		// {
-		// 	cleanup_ncurses(board);
-		// 	return ;
-		// }
 	}
 }

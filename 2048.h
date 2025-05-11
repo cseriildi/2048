@@ -10,6 +10,8 @@
 
 #include <ncurses.h>
 
+#define is_power_of_two(n) n > 0 && (n & (n - 1)) == 0
+
 #define ESCAPE 27
 
 #define MAX_BOARD_SIZE 5
@@ -31,6 +33,8 @@
 #define MIN_TILE_Y 3
 #define MIN_TILE_SPACING 1
 #define MIN_SCORE_X 16
+#define GAME_OVER1 "Game Over!"
+#define GAME_OVER2 "Your score is"
 
 enum e_const
 {
@@ -101,7 +105,7 @@ void		init_board(t_board *board);
 void		update_board(t_board *board);
 void		update_score(t_board *board);
 t_result	resize_window(t_board *board, int ch);
-t_result	menu(t_board *board);
+t_result	get_grid_size(t_board *board);
 t_result 	board_size_check(t_board *board);
 t_result	window_resize_loop(t_board *board);
 t_result	setup_windows_error(t_board *board);
@@ -150,3 +154,7 @@ t_result	write_score_to_file(t_board *board);
 unsigned int	get_center_pos(t_win *win, unsigned int size);
 void		print_centered(t_win *win, int row, const char *str);
 void		print_centered_number(t_win *win, int row, unsigned int number);
+
+void	init_menu(t_board *board);
+void update_menu(t_board *board);
+t_result	setup_menu_window(t_board *board);

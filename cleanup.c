@@ -24,11 +24,6 @@ void cleanup_ncurses(t_board *board)
 		delwin(board->menu.win);
 		board->menu.win = NULL;
 	}
-	// if (stdscr != NULL)
-	// {
-	// 	delwin(stdscr);
-	// 	stdscr = NULL;
-	// }
 	endwin();
 }
 
@@ -37,7 +32,7 @@ t_result write_score_to_file(t_board *board)
 {
 	int fd = open(SCORE_FILE, O_WRONLY | O_APPEND | O_CREAT, 0644);
 	if (fd == -1)
-		return print_error(CANT_OPEN_FILE);
+		return CANT_OPEN_FILE;
 	
 	ft_putnbr_fd(board->score, fd);
 	ft_putchar_fd('\n', fd);
@@ -55,8 +50,6 @@ t_result print_error(t_result result)
 		ft_putstr_fd("WIN_VALUE must be a power of 2", 2);
 	else if (result == SCORE_LIST_SIZE_ERROR)
 		ft_putstr_fd("SCORE_LIST_SIZE must be greater than 0", 2);
-	else if (result == USER_EXIT)
-		return SUCCESS;
 
-	return result;
+	return result == USER_EXIT ? SUCCESS : result;
 }

@@ -13,9 +13,7 @@ void init_board(t_board *board)
 	}
 	board->empty_tiles = board->size * board->size;
 	board->game_over = false;
-	board->spawn = true;
 	spawn_number(board);
-	board->spawn = true;
 	spawn_number(board);
 	update_board(board);
 	update_score(board);
@@ -24,7 +22,7 @@ static bool is_valid_score(char *score)
 {
 	for (int i = 0; score[i] != '\n'; i++)
 	{
-		if (i > 5 || !isdigit(score[i]))
+		if (i > 5 || !ft_isdigit(score[i]))
 			return false;
 	}
 	return true;
