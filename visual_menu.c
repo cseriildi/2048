@@ -5,7 +5,7 @@ void update_menu(t_board *board)
 	if (board->game_over)
 	{
 		box(board->menu.win, 0, 0);
-		wbkgd(board->menu.win, COLOR_PAIR(NUMBER_OF_COLORS + 1));
+		wbkgd(board->menu.win, COLOR_PAIR(COLOR_GAMEOVER));
 		wattron(board->menu.win, A_BOLD);
 		print_centered(&board->menu, 1, GAME_OVER1);
 		print_centered(&board->menu, 3, GAME_OVER2);
@@ -14,7 +14,7 @@ void update_menu(t_board *board)
 	}
 	else
 	{
-		box(board->menu.win, 0, 0);
+		wbkgd(board->menu.win, COLOR_PAIR(COLOR_MENU));
 		wattron(board->menu.win, A_BOLD); 
 		print_centered(&board->menu, ROW_TITLE, MENU_TITLE);
 		wattroff(board->menu.win, A_BOLD); 
@@ -70,6 +70,7 @@ t_result get_grid_size(t_board *board)
 		update_menu(board);
 		ch = wgetch(board->menu.win);
 	}
+	wbkgd(board->menu.win, COLOR_PAIR(COLOR_DEFAULT));
 	board->size = (board->menu.scroll_offset == 0) ? 4 : 5;
 	wclear(board->menu.win);
 	wrefresh(board->menu.win);

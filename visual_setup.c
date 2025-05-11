@@ -12,11 +12,12 @@ static void	define_colors(void)
 			init_pair(i + 1, COLOR_BLACK, rainbow[i]);
 	}
 	init_pair(NUMBER_OF_COLORS + 1, COLOR_WHITE, COLOR_RED);
+	init_pair(NUMBER_OF_COLORS + 2, COLOR_RED, COLOR_WHITE);
+	init_pair(NUMBER_OF_COLORS + 3, COLOR_BLACK, COLOR_WHITE);
 }
 
 t_result	setup_menu_window(t_board *board)
 {
-	board->menu.scroll_offset = 0;
 	board->menu.size_x = MENU_WIDTH;
 	board->menu.size_y = MENU_HEIGHT;
 	board->menu.pos_x = board->screen_x / 2 - board->menu.size_x / 2;
@@ -122,7 +123,8 @@ t_result	setup_ncurses(t_board *board)
 
 	init_ncurses();
 	define_colors();
-	
+	board->menu.scroll_offset = 0;
+
 	if ((result = window_size_check(board)) != SUCCESS)
 		return result;
 

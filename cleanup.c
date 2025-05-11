@@ -30,7 +30,7 @@ void cleanup_ncurses(t_board *board)
 
 t_result write_score_to_file(t_board *board)
 {
-	int fd = open(SCORE_FILE, O_WRONLY | O_APPEND | O_CREAT, 0644);
+	int fd = open(board->score_file, O_WRONLY | O_APPEND | O_CREAT, 0644);
 	if (fd == -1)
 		return CANT_OPEN_FILE;
 	
@@ -43,11 +43,9 @@ t_result write_score_to_file(t_board *board)
 t_result print_error(t_result result)
 {
 	if (result == CANT_OPEN_FILE)
-		ft_putendl_fd("Can't open file: " SCORE_FILE, 2);
+		ft_putendl_fd("Can't open score file.", 2);
 	else if (result == NCURSES_FAILED)
 		ft_putendl_fd("Ncurses failed to initialize", 2);
-	else if (result == WIN_VALUE_ERROR)
-		ft_putendl_fd("WIN_VALUE must be a power of 2", 2);
 	else if (result == SCORE_LIST_SIZE_ERROR)
 		ft_putendl_fd("SCORE_LIST_SIZE must be greater than 0", 2);
 

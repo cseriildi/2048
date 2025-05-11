@@ -18,7 +18,8 @@
 #define MAX_BOARD_SIZE 5
 #define MAX_SIZE_OPTIONS 2
 
-#define SCORE_FILE "scores.txt"
+#define SCORE_FILE_4 "scores_4.txt"
+#define SCORE_FILE_5 "scores_5.txt"
 #define SCORE_LIST_SIZE 100
 
 #define ROW_TITLE 1	// box border has 0
@@ -44,13 +45,20 @@
 #define STATS4 "Goal:"
 
 #define NUMBER_OF_COLORS 18
+#define COLOR_GAMEOVER 19
+#define COLOR_TOOSMALL_WINDOW 20
+#define COLOR_TOOSMALL_TEXT 21
+#define COLOR_MENU 6
+#define COLOR_DEFAULT 0
 
 #define SCORE_PRINT_START 0
 #define MAX_TILE_PRINT_START -5
 
+#define DEFAULT_WIN 2048
+
 enum e_const
 {
-	WIN_VALUE = 2048
+	WIN_VALUE = 4098
 };
 
 typedef struct s_win {
@@ -80,6 +88,7 @@ typedef struct board
 
 	t_win	score_win;
 	t_win	menu;
+	unsigned int win_value;
 	unsigned int score;
 	unsigned int max_tile_value;
 	unsigned int screen_x;
@@ -91,6 +100,7 @@ typedef struct board
 	unsigned int top_scores[SCORE_LIST_SIZE];
 
 	char *ascii_numbers[10][4];
+	char *score_file;
 
 }	t_board;
 
@@ -107,7 +117,6 @@ typedef enum e_result
 	SUCCESS,
 	CANT_OPEN_FILE,
 	NCURSES_FAILED,
-	WIN_VALUE_ERROR,
 	SCORE_LIST_SIZE_ERROR,
 	USER_EXIT,
 }	t_result;
@@ -167,6 +176,7 @@ unsigned int	get_center_pos(t_win *win, unsigned int size);
 void		print_centered(t_win *win, int row, const char *str);
 void		print_centered_number(t_win *win, int row, unsigned int number);
 void		print_stats(t_board *board);
+unsigned int numlen(unsigned int number);
 
 // ascii art
 unsigned int	ascii_fits(t_tile *tile, t_board *board);

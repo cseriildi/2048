@@ -11,7 +11,7 @@ void print_centered(t_win *win, int row, const char *str)
 	mvwprintw(win->win, row, center_x, "%s", str);
 }
 
-static unsigned int numlen(unsigned int number)
+unsigned int numlen(unsigned int number)
 {
 	if (number == 0)
 		return 1;
@@ -48,5 +48,5 @@ void print_stats(t_board *board)
 
 	print_centered_str_number(&board->score_win, row++,STATS2, board->score);
 	print_centered_str_number(&board->score_win, row++,STATS3, board->max_tile_value);
-	print_centered_str_number(&board->score_win, row++,STATS4, WIN_VALUE);
+	print_centered_str_number(&board->score_win, row++,STATS4, board->win_value);
 }

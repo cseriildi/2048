@@ -76,13 +76,6 @@ void game_loop(t_board *board)
 				exec_move(board, LEFT);
 			else if (ch == KEY_RIGHT)
 				exec_move(board, RIGHT);
-			else if (ch == 'g') //TODO: remove
-				board->game_over = true;
-			else if (ch == 'w') //TODO: remove
-			{
-				board->max_tile_value = WIN_VALUE;
-				board->win = true;
-			}
 			else
 			 	continue;
 

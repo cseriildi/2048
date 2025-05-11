@@ -2,6 +2,7 @@
 
 void init_board(t_board *board)
 {
+	init_ascii_numbers(board);
 	srand(time(NULL));
 	for (int x = 0; x < board->size; x++)
 	{
@@ -16,23 +17,7 @@ void init_board(t_board *board)
 	
 	spawn_number(board);
 	spawn_number(board);
-	// board->tiles[0][0].number = 2;
-	// board->tiles[0][1].number = 4;
-	// board->tiles[0][2].number = 8;
-	// board->tiles[0][3].number = 16;
-	// board->tiles[0][4].number = 32;
-	// board->tiles[1][0].number = 64;
-	// board->tiles[1][1].number = 128;
-	// board->tiles[1][2].number = 256;
-	// board->tiles[1][3].number = 512;
-	// board->tiles[1][4].number = 1024;
-	// board->tiles[2][0].number = 2048;
-	// board->tiles[2][1].number = 4096;
-	// board->tiles[2][2].number = 8192;
-	// board->tiles[2][3].number = 16384;
-	// board->tiles[2][4].number = 32768;
-	// board->tiles[3][0].number = 65536;
-	// board->tiles[3][1].number = 131072;
+	
 	update_board(board);
 	update_score(board);
 }
@@ -49,9 +34,17 @@ static bool is_valid_score(char *score)
 
 t_result init_score(t_board *board)
 {
+	if (is_power_of_two(WIN_VALUE) == false)
+		board->win_value = DEFAULT_WIN;
+	else
+		board->win_value = WIN_VALUE;
+	
+	board->score_file = SCORE_FILE_4;
+	if (board->size == 5)
+		board->score_file = SCORE_FILE_5;
 	if (SCORE_LIST_SIZE <= 0)
 		return SCORE_LIST_SIZE_ERROR;
-	int fd = open(SCORE_FILE, O_RDONLY | O_CREAT, 0644);
+	int fd = open(board->score_file, O_RDONLY | O_CREAT, 0644);
 	if ((fd) == -1)
 		return CANT_OPEN_FILE;
 	
@@ -59,7 +52,6 @@ t_result init_score(t_board *board)
 	unsigned int score = 0;
 
 	ft_memset(board->top_scores, 0, sizeof(board->top_scores));
-	// ft_memcpy(board->top_scores, (unsigned int[SCORE_LIST_SIZE]){0}, sizeof(board->top_scores));
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		if (is_valid_score(line) == false)
