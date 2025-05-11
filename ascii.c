@@ -2,6 +2,8 @@
 
 int	ascii_fits(t_tile *tile, t_board *board)
 {
+	if (tile->win.size_y < 4)
+		return (0);
 	int	ascii_width = 0;
 	int	num = tile->number;
 	int digit;
@@ -30,7 +32,7 @@ static unsigned int	print_ascii_number(int digit, t_tile *tile, t_board *board, 
 	(void)board;
 	(void)y;
 	(void)x;
-	return x - 1;
+	return x;
 }
 
 void print_ascii_centered(int ascii_width, t_tile *tile, t_board *board)
