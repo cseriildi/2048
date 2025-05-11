@@ -1,11 +1,16 @@
 #include "2048.h"
 
-unsigned int ft_sqrt(unsigned int n)
+int get_power_of_two(int n)
 {
-	unsigned int i = 0;
-	while (i * i < n)
-		i++;
-	return (i);
+    int power = 0;
+    unsigned int tmp = (unsigned int)n;
+
+	while (tmp > 1) {
+        tmp >>= 1;
+        power++;
+    }
+
+    return power;
 }
 
 void update_board(t_board *board)
@@ -21,7 +26,7 @@ void update_board(t_board *board)
 			wclear(tile.win.win);
 			if (has_colors())
 			{
-				tile.win.color = ft_sqrt(tile.number) + 1;
+				tile.win.color = get_power_of_two(tile.number) + 1; //ft_sqrt(tile.number) + 1;
 				wbkgd(tile.win.win, COLOR_PAIR(tile.win.color));
 			}
 			else
@@ -29,7 +34,6 @@ void update_board(t_board *board)
 
 			if (tile.number != 0)
 			{
-				//TODO: ascii art for numbers
 				if ((ascii_width = ascii_fits(&tile, board)) > 0)
 					print_ascii_centered(ascii_width, &tile, board);
 				else
@@ -69,6 +73,6 @@ void update_score(t_board *board)
 
 	print_stats(board, row);
 
-	wbkgd(board->score_win.win, COLOR_PAIR(ft_sqrt(board->max_tile_value) + 1));
+	wbkgd(board->score_win.win, COLOR_PAIR(get_power_of_two(board->max_tile_value) + 1));
 	wrefresh(board->score_win.win);
 }
