@@ -61,5 +61,8 @@ void	check_game_over(t_board *board)
 	if (!board->game_over && board->empty_tiles == 0 && !is_move_possible(board))
 		board->game_over = true;
 	if (board->game_over)
-	update_menu(board);	
+	{
+		update_menu(board);
+		update_score(board);
+	}
 }

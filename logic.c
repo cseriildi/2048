@@ -18,6 +18,8 @@ void	spawn_number(t_board *board)
 				if (tile == 0)
 				{
 					board->tiles[y][x].number = number;
+					if (board->tiles[y][x].number > board->max_tile_value)
+						board->max_tile_value = board->tiles[y][x].number;
 					board->empty_tiles--;
 					board->spawn = false;
 					return ;
@@ -83,7 +85,10 @@ void game_loop(t_board *board)
 			else if (ch == 'g') //TODO: remove
 				board->game_over = true;
 			else if (ch == 'w') //TODO: remove
-				board->score = WIN_VALUE;
+			{
+				board->max_tile_value = WIN_VALUE;
+				board->win = true;
+			}
 			else
 			 	continue;
 

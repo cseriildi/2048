@@ -35,6 +35,13 @@
 #define MIN_SCORE_X 16
 #define GAME_OVER1 "Game Over!"
 #define GAME_OVER2 "Your score is"
+#define STATS1 "Your stats"
+#define STATS2 "Your score:"
+#define STATS3 "Max tile:"
+#define STATS4 "Goal:"
+
+#define SCORE_PRINT_START 1
+#define MAX_TILE_PRINT_START -5
 
 enum e_const
 {
@@ -52,7 +59,7 @@ typedef struct s_win {
 } t_win;
 typedef struct tile
 {
-	int 	number;
+	unsigned int 	number;
 	bool	merged;
 	t_win	win;
 }	t_tile;
@@ -69,6 +76,7 @@ typedef struct board
 	t_win	score_win;
 	t_win	menu;
 	unsigned int score;
+	unsigned int max_tile_value;
 	unsigned int screen_x;
 	unsigned int screen_y;
 	unsigned int min_screen_x;
@@ -154,7 +162,8 @@ t_result	write_score_to_file(t_board *board);
 unsigned int	get_center_pos(t_win *win, unsigned int size);
 void		print_centered(t_win *win, int row, const char *str);
 void		print_centered_number(t_win *win, int row, unsigned int number);
+void		print_stats(t_board *board, unsigned int row);
 
-void	init_menu(t_board *board);
-void update_menu(t_board *board);
+void		init_menu(t_board *board);
+void		update_menu(t_board *board);
 t_result	setup_menu_window(t_board *board);

@@ -1,4 +1,5 @@
 #include "2048.h"
+
 unsigned int ft_sqrt(unsigned int n)
 {
 	unsigned int i = 0;
@@ -37,54 +38,31 @@ void update_score(t_board *board)
 {
 	wclear(board->score_win.win);
 	//TODO: not show when y >= x
+
+	unsigned int row = SCORE_PRINT_START;
+	unsigned int max_row = board->score_win.size_y + MAX_TILE_PRINT_START;
+	max_row -= (board->win || board->game_over) ? 2 : 0;
+
 	wattron(board->score_win.win, A_BOLD); 
-	print_centered(&board->score_win, 1, SCORE_TITLE);
+	print_centered(&board->score_win, row++, SCORE_TITLE);
 	wattroff(board->score_win.win, A_BOLD); 
 
 	unsigned int i = 0;
-	unsigned int j = 2;
-	while  (j < board->score_win.size_y
-			&& board->score < board->top_scores[i]
+	while  (row < max_row && board->score < board->top_scores[i]
 			&& board->top_scores[i] != 0)
-		print_centered_number(&board->score_win, j++, board->top_scores[i++]);
+		print_centered_number(&board->score_win, row++, board->top_scores[i++]);
 
-	if (j < board->score_win.size_y)
+	if (row < max_row)
 	{
 		wattron(board->score_win.win, A_REVERSE);
-		print_centered_number(&board->score_win, j++, board->score);
+		print_centered_number(&board->score_win, row++, board->score);
 		wattroff(board->score_win.win, A_REVERSE);
 	}
-	while  (j < board->score_win.size_y && board->top_scores[i] != 0)
-		print_centered_number(&board->score_win, j++, board->top_scores[i++]);
-	
-	box(board->score_win.win, 0, 0);
+	while  (row < max_row && board->top_scores[i] != 0)
+		print_centered_number(&board->score_win, row++, board->top_scores[i++]);
+
+	print_stats(board, row);
+
+	wbkgd(board->score_win.win, COLOR_PAIR(ft_sqrt(board->max_tile_value) + 1));
 	wrefresh(board->score_win.win);
-}
-
-unsigned int get_center_pos(t_win *win, unsigned int size)
-{
-	return (win->size_x / 2 - size / 2);
-}
-
-void print_centered(t_win *win, int row, const char *str)
-{
-	unsigned int center_x = get_center_pos(win, ft_strlen(str));
-	mvwprintw(win->win, row, center_x, "%s", str);
-}
-static unsigned int numlen(unsigned int number)
-{
-	if (number == 0)
-		return 1;
-
-	unsigned int len;
-	for (len = 0; number > 0; len++)
-		number /= 10;
-
-	return (len);
-}
-
-void print_centered_number(t_win *win, int row, unsigned int number)
-{
-	unsigned int center_x = get_center_pos(win, numlen(number));
-	mvwprintw(win->win, row, center_x, "%d", number);
 }
