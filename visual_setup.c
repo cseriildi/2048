@@ -49,9 +49,9 @@ t_result	setup_board_window(t_board *board)
 				base_side = board->screen_x - SCORE_WIN_X - WINDOW_SPACING;
 			else
 				base_side = (board->screen_y ) * 2 - MIN_TILE_SPACING - WINDOW_SPACING;
-			if (base_side % 2)
-				base_side--;
 			tile->win.size_x = base_side / board->size - WINDOW_SPACING * 2;
+			if (tile->win.size_x % 2)
+				tile->win.size_x--;
 			tile->win.size_y = tile->win.size_x / 2;
 			
 			tile->win.pos_x = j * (tile->win.size_x + MIN_TILE_SPACING * 2) + WINDOW_SPACING;
