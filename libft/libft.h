@@ -6,19 +6,15 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:31:33 by icseri            #+#    #+#             */
-/*   Updated: 2025/05/10 12:39:36 by icseri           ###   ########.fr       */
+/*   Updated: 2025/05/11 11:15:13 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <string.h>
-# include <bsd/string.h>
-# include <ctype.h>
 # include <stdint.h>
 # include <stdarg.h>
 
