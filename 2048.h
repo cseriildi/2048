@@ -42,7 +42,7 @@
 #define STATS3 "Max tile:"
 #define STATS4 "Goal:"
 
-#define SCORE_PRINT_START 1
+#define SCORE_PRINT_START 0
 #define MAX_TILE_PRINT_START -5
 
 enum e_const
