@@ -51,7 +51,6 @@ void update_board(t_board *board)
 void update_score(t_board *board)
 {
 	wclear(board->score_win.win);
-	//TODO: not show when y >= x
 
 	unsigned int row = SCORE_PRINT_START;
 	unsigned int max_row = board->score_win.size_y + MAX_TILE_PRINT_START;

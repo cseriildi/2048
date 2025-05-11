@@ -122,9 +122,9 @@ t_result	setup_ncurses(t_board *board)
 
 	init_ncurses();
 	define_colors();
-	// check if the screen is big enough for the game
+	
 	if ((result = window_size_check(board)) != SUCCESS)
 		return result;
-	// window creation
+
 	return setup_windows_error(board);
 }
