@@ -1,10 +1,10 @@
 #include "2048.h"
 
-int	ascii_fits(t_tile *tile, t_board *board)
+unsigned int	ascii_fits(t_tile *tile, t_board *board)
 {
 	if (tile->win.size_y < 4)
 		return (0);
-	int	ascii_width = 0;
+	unsigned int	ascii_width = 0;
 	int	num = tile->number;
 	int digit;
 	while (num > 0)
@@ -13,6 +13,11 @@ int	ascii_fits(t_tile *tile, t_board *board)
 		num /= 10;
 		ascii_width += ft_strlen(board->ascii_numbers[digit][0]);
 		// mvwprintw(tile->win.win, 0, 0, "ascii_width: %d\n", ascii_width);
+	}
+	if (ascii_width > tile->win.size_x)
+	{
+		// mvwprintw(tile->win.win, 0, 0, "ascii_width: %d\n", ascii_width);
+		return (0);
 	}
 	return (ascii_width);
 }
