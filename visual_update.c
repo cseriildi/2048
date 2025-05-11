@@ -35,7 +35,11 @@ void update_board(t_board *board)
 			if (tile.number != 0)
 			{
 				if ((ascii_width = ascii_fits(&tile, board)) > 0)
+				{
+					wattron(tile.win.win, A_BOLD);
 					print_ascii_centered(ascii_width, &tile, board);
+					wattroff(tile.win.win, A_BOLD);
+				}
 				else
 					print_centered_number(&tile.win, tile.win.size_y / 2, tile.number);
 			}
