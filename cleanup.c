@@ -2,6 +2,9 @@
 
 void cleanup_ncurses(t_board *board)
 {
+	keypad(stdscr, FALSE);
+	keypad(board->menu.win, FALSE);
+	keypad(board->score_win.win, FALSE);
 	for (int i = 0; i < board->size; i++)
 	{
 		for (int j = 0; j < board->size; j++)
@@ -24,6 +27,9 @@ void cleanup_ncurses(t_board *board)
 		delwin(board->menu.win);
 		board->menu.win = NULL;
 	}
+	nocbreak();
+	echo();
+	curs_set(1);
 	endwin();
 }
 
