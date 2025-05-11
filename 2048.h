@@ -105,7 +105,7 @@ void		init_board(t_board *board);
 void		update_board(t_board *board);
 void		update_score(t_board *board);
 t_result	resize_window(t_board *board, int ch);
-t_result	menu(t_board *board);
+t_result	get_grid_size(t_board *board);
 t_result 	board_size_check(t_board *board);
 t_result	window_resize_loop(t_board *board);
 t_result	setup_windows_error(t_board *board);
@@ -157,3 +157,4 @@ void		print_centered_number(t_win *win, int row, unsigned int number);
 
 void	init_menu(t_board *board);
 void update_menu(t_board *board);
+t_result	setup_menu_window(t_board *board);

@@ -32,16 +32,6 @@ void update_menu(t_board *board)
 	wrefresh(board->menu.win);
 }
 
-void	init_menu(t_board *board)
-{
-	board->menu.scroll_offset = 0;
-	board->menu.size_x = MENU_WIDTH;
-	board->menu.size_y = MENU_HEIGHT;
-	board->menu.win = newwin(board->menu.size_y, board->menu.size_x,
-			board->screen_y / 2 - board->menu.size_y / 2,	// position y
-			board->screen_x / 2 - board->menu.size_x / 2);	// position x
-}
-
 static t_result	resize_menu(t_board *board)
 {
 	t_result res;
@@ -49,26 +39,18 @@ static t_result	resize_menu(t_board *board)
 	erase();
 	refresh();
 	cleanup_ncurses(board);
-	// t_result res = init_ncurses(board);
-	// if (res != SUCCESS)
-	// 	return res;
-	
+
 	if ((res = window_size_check(board)) != SUCCESS)
-	{
 		return res;
-	}
-	init_menu(board);
+	res = setup_menu_window(board);
 	keypad(board->menu.win, TRUE);
-	return SUCCESS;
+	return res;
 }
 
-t_result menu(t_board *board)
+t_result get_grid_size(t_board *board)
 {
 	t_result res;
 
-	init_menu(board);
-	if (board->menu.win == NULL)
-		return NCURSES_FAILED;
 	update_menu(board);
 	keypad(board->menu.win, TRUE);
 

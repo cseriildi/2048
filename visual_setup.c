@@ -15,9 +15,22 @@ static void	define_colors(void)
 	}
 }
 
-t_result	setup_windows_error(t_board *board)
+t_result	setup_menu_window(t_board *board)
 {
-	// game window = individual tiles
+	board->menu.scroll_offset = 0;
+	board->menu.size_x = MENU_WIDTH;
+	board->menu.size_y = MENU_HEIGHT;
+	board->menu.win = newwin(board->menu.size_y, board->menu.size_x,
+			board->screen_y / 2 - board->menu.size_y / 2,	// position y
+			board->screen_x / 2 - board->menu.size_x / 2);	// position x
+	if (board->menu.win == NULL)
+		return NCURSES_FAILED;
+	
+	return SUCCESS;
+}
+
+t_result	setup_board_window(t_board *board)
+{
 	for (int i = 0; i < board->size; i++)
 	{
 		for (int j = 0; j < board->size; j++)
@@ -37,7 +50,11 @@ t_result	setup_windows_error(t_board *board)
 				return NCURSES_FAILED;
 		}
 	}
-	// score board window
+	return SUCCESS;
+}
+
+t_result	setup_score_window(t_board *board)
+{
 	//TODO: formula for resizing
 	int total_board_width = board->size * (MIN_TILE_X + MIN_TILE_SPACING * 2);
 	board->score_win.size_x = board->screen_x - total_board_width;
@@ -54,6 +71,19 @@ t_result	setup_windows_error(t_board *board)
 	return SUCCESS;
 }
 
+t_result	setup_windows_error(t_board *board)
+{
+	t_result result;
+	
+	result = setup_menu_window(board);
+	if (result == SUCCESS && !board->size)
+		result = get_grid_size(board);
+	if (result == SUCCESS)
+		result = setup_board_window(board);
+	if (result == SUCCESS)
+		result = setup_score_window(board);
+	return result;
+}
 
 void init_ncurses(void)
 {
@@ -73,9 +103,6 @@ t_result	setup_ncurses(t_board *board)
 	define_colors();
 	// check if the screen is big enough for the game
 	if ((result = window_size_check(board)) != SUCCESS)
-		return result;
-	// game mode selection
-	if (!board->size && (result = menu(board)) != SUCCESS)
 		return result;
 	// window creation
 	if ((result = setup_windows_error(board)) != SUCCESS)
