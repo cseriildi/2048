@@ -114,15 +114,14 @@ t_result	init_score(t_board *board);
 void		init_board(t_board *board);
 
 // ncusrses
+t_result	window_size_check(t_board *board);
+t_result	get_grid_size(t_board *board);
+t_result	setup_windows_error(t_board *board);
+t_result	setup_menu_window(t_board *board);
 void		update_board(t_board *board);
 void		update_score(t_board *board);
-t_result	resize_window(t_board *board, int ch);
-t_result	get_grid_size(t_board *board);
-t_result 	board_size_check(t_board *board);
-t_result	window_resize_loop(t_board *board);
-t_result	setup_windows_error(t_board *board);
-// --- new
-t_result	window_size_check(t_board *board);
+void		update_menu(t_board *board);
+
 // t_result	window_too_small_loop(t_board *board);
 t_result	resize_gameloop(t_board *board, int ch);
 
@@ -159,20 +158,13 @@ void		cleanup_ncurses(t_board *board);
 void		debug_print(t_board *board);
 void		debug_move(t_board *board);
 
-
-t_result	write_score_to_file(t_board *board);
-
 //utils
 unsigned int	get_center_pos(t_win *win, unsigned int size);
 void		print_centered(t_win *win, int row, const char *str);
 void		print_centered_number(t_win *win, int row, unsigned int number);
 void		print_stats(t_board *board, unsigned int row);
 
-void		init_menu(t_board *board);
-void		update_menu(t_board *board);
-t_result	setup_menu_window(t_board *board);
-
 // ascii art
-int	ascii_fits(t_tile *tile, t_board *board);
-void print_ascii_centered(int ascii_width, t_tile *tile, t_board *board);
-void	init_ascii_numbers(t_board *board);
+unsigned int	ascii_fits(t_tile *tile, t_board *board);
+void 		print_ascii_centered(int ascii_width, t_tile *tile, t_board *board);
+void		init_ascii_numbers(t_board *board);
