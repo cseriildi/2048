@@ -8,11 +8,12 @@ int main(void)
 	if (is_power_of_two(WIN_VALUE) == false)
 		return print_error(WIN_VALUE_ERROR);
 
-	if ((result = init_score(&board)) != SUCCESS)
-		return print_error(result);
+	// if ((result = init_score(&board)) != SUCCESS)
+	// 	return print_error(result);
 		
 	init_ascii_numbers(&board);
-	if ((result = setup_ncurses(&board)) == SUCCESS)
+	if ((result = setup_ncurses(&board)) == SUCCESS
+		&& (result = init_score(&board)) == SUCCESS)
 	{
 		init_board(&board);
 		game_loop(&board);

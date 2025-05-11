@@ -49,9 +49,12 @@ static bool is_valid_score(char *score)
 
 t_result init_score(t_board *board)
 {
+	board->score_file = SCORE_FILE_4;
+	if (board->size == 5)
+		board->score_file = SCORE_FILE_5;
 	if (SCORE_LIST_SIZE <= 0)
 		return SCORE_LIST_SIZE_ERROR;
-	int fd = open(SCORE_FILE, O_RDONLY | O_CREAT, 0644);
+	int fd = open(board->score_file, O_RDONLY | O_CREAT, 0644);
 	if ((fd) == -1)
 		return CANT_OPEN_FILE;
 	

@@ -18,7 +18,8 @@
 #define MAX_BOARD_SIZE 5
 #define MAX_SIZE_OPTIONS 2
 
-#define SCORE_FILE "scores.txt"
+#define SCORE_FILE_4 "scores_4.txt"
+#define SCORE_FILE_5 "scores_5.txt"
 #define SCORE_LIST_SIZE 100
 
 #define ROW_TITLE 1	// box border has 0
@@ -91,6 +92,7 @@ typedef struct board
 	unsigned int top_scores[SCORE_LIST_SIZE];
 
 	char *ascii_numbers[10][4];
+	char *score_file;
 
 }	t_board;
 
