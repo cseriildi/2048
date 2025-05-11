@@ -86,6 +86,8 @@ typedef struct board
 
 	unsigned int top_scores[SCORE_LIST_SIZE];
 
+	char *ascii_numbers[10][4];
+
 }	t_board;
 
 typedef enum e_direction
@@ -169,3 +171,8 @@ void		print_stats(t_board *board, unsigned int row);
 void		init_menu(t_board *board);
 void		update_menu(t_board *board);
 t_result	setup_menu_window(t_board *board);
+
+// ascii art
+int	ascii_fits(t_tile *tile, t_board *board);
+void print_ascii_centered(int ascii_width, t_tile *tile, t_board *board);
+void	init_ascii_numbers(t_board *board);

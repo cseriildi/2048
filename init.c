@@ -13,6 +13,7 @@ void init_board(t_board *board)
 	}
 	board->empty_tiles = board->size * board->size;
 	board->game_over = false;
+	
 	spawn_number(board);
 	spawn_number(board);
 	update_board(board);

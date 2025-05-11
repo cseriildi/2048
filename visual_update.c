@@ -10,7 +10,8 @@ unsigned int ft_sqrt(unsigned int n)
 
 void update_board(t_board *board)
 {
-	t_tile tile;
+	t_tile	tile;
+	int		ascii_width;
 
 	for (int i = 0; i < board->size; i++)
 	{
@@ -27,8 +28,13 @@ void update_board(t_board *board)
 				box(tile.win.win, 0, 0);
 
 			if (tile.number != 0)
+			{
 				//TODO: ascii art for numbers
-				print_centered_number(&tile.win, tile.win.size_y / 2, tile.number);
+				if ((ascii_width = ascii_fits(&tile, board)) > 0)
+					print_ascii_centered(ascii_width, &tile, board);
+				else
+					print_centered_number(&tile.win, tile.win.size_y / 2, tile.number);
+			}
 			wrefresh(tile.win.win);
 		}
 	}
