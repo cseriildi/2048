@@ -4,14 +4,14 @@ static void	define_colors(void)
 {
 	if (has_colors())
 	{
-		start_color(); //98
-		short rainbow[18] = {
+		start_color();
+		short rainbow[NUMBER_OF_COLORS] = {
 			 231, 122, 123, 117, 111, 105, 141, 177, 212, 211, 210, 216, 222, 228, 192, 156, 120 ,121
 		};
-		for (int i = 0; i < 18; ++i)
+		for (int i = 0; i < NUMBER_OF_COLORS; ++i)
 			init_pair(i + 1, COLOR_BLACK, rainbow[i]);
 	}
-	init_pair(21, COLOR_WHITE, COLOR_RED);
+	init_pair(NUMBER_OF_COLORS + 1, COLOR_WHITE, COLOR_RED);
 }
 
 t_result	setup_menu_window(t_board *board)
@@ -122,9 +122,9 @@ t_result	setup_ncurses(t_board *board)
 
 	init_ncurses();
 	define_colors();
-	// check if the screen is big enough for the game
+	
 	if ((result = window_size_check(board)) != SUCCESS)
 		return result;
-	// window creation
+
 	return setup_windows_error(board);
 }

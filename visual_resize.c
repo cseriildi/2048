@@ -7,8 +7,6 @@ t_result	resize_gameloop(t_board *board, int ch)
 	erase();
 	refresh();
 	cleanup_ncurses(board);
-	// res = setup_ncurses(board);
-	// printf("resizing window to %i x %i\n", board->screen_x, board->screen_y);
 
 	t_result	res = SUCCESS;
 	if ((res = window_size_check(board)) == SUCCESS
@@ -22,7 +20,6 @@ t_result	resize_gameloop(t_board *board, int ch)
 	return res;
 }
 
-// t_result 	board_size_check(t_board *board)
 static t_result window_too_small_loop(t_board *board)
 {
 	while (board->screen_x < board->min_screen_x ||
@@ -42,7 +39,6 @@ static t_result window_too_small_loop(t_board *board)
 	return SUCCESS;
 }
 
-// t_result	window_resize_loop(t_board *board)
 t_result	window_size_check(t_board *board)
 {
 	t_result res;

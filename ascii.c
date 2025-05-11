@@ -30,14 +30,12 @@ static unsigned int	print_ascii_number(int digit, t_tile *tile, t_board *board, 
 void print_ascii_centered(int ascii_width, t_tile *tile, t_board *board)
 {
 	int num = tile->number;
-	// mvwprintw(tile->win.win, 1, 0, "ascii_width: %d\n", ascii_width);
 	unsigned int start_x = get_center_pos(&tile->win, ascii_width);
 	unsigned int end_x = tile->win.size_x - start_x;
 	unsigned int start_y;
 	
-	start_y = tile->win.size_y / 2 - 2;
-	if (tile->win.size_y % 2)
-		start_y++;
+	start_y = tile->win.size_y / 2 - 2 + (tile->win.size_y % 2);
+
 	while (num > 0)
 	{
 		int digit = num % 10;

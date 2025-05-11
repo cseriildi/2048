@@ -2,20 +2,16 @@
 
 void	spawn_number(t_board *board)
 {
-	short tile;
-	short number;
+	short tile = rand() % board->empty_tiles;
+	short number = (rand() % 10 == 0) ? 4 : 2;
 	
-	tile =  rand() % board->empty_tiles;
-	
-	number = (rand() % 10 == 0) ? 4 : 2;
-
 	for (int x = 0; x < board->size; x++)
 	{
 		for (int y = 0; y < board->size; y++)
 		{
 			if (board->tiles[y][x].number == 0)
 			{
-				if (tile == 0)
+				if (tile-- == 0)
 				{
 					board->tiles[y][x].number = number;
 					if (board->tiles[y][x].number > board->max_tile_value)
@@ -24,7 +20,6 @@ void	spawn_number(t_board *board)
 					board->spawn = false;
 					return ;
 				}
-				tile--;
 			}
 		}
 	}
@@ -65,7 +60,6 @@ void	exec_move(t_board *board, t_direction dir)
 
 void game_loop(t_board *board)
 {
-	//TODO: print instructions
 	keypad(board->score_win.win, TRUE);
 	int ch;
 	while ((ch = wgetch(board->score_win.win)) != ESCAPE
