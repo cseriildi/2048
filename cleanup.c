@@ -46,8 +46,6 @@ t_result print_error(t_result result)
 		ft_putendl_fd("Can't open score file.", 2);
 	else if (result == NCURSES_FAILED)
 		ft_putendl_fd("Ncurses failed to initialize", 2);
-	else if (result == WIN_VALUE_ERROR)
-		ft_putendl_fd("WIN_VALUE must be a power of 2", 2);
 	else if (result == SCORE_LIST_SIZE_ERROR)
 		ft_putendl_fd("SCORE_LIST_SIZE must be greater than 0", 2);
 

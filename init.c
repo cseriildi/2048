@@ -34,6 +34,11 @@ static bool is_valid_score(char *score)
 
 t_result init_score(t_board *board)
 {
+	if (is_power_of_two(WIN_VALUE) == false)
+		board->win_value = DEFAULT_WIN;
+	else
+		board->win_value = WIN_VALUE;
+	
 	board->score_file = SCORE_FILE_4;
 	if (board->size == 5)
 		board->score_file = SCORE_FILE_5;

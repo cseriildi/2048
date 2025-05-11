@@ -8,7 +8,7 @@ static void	merge_helper(t_board *board, int x, int y)
 	if (board->tiles[y][x].number > board->max_tile_value)
 		board->max_tile_value = board->tiles[y][x].number;
 
-	if (!board->win && board->max_tile_value == WIN_VALUE)
+	if (!board->win && board->max_tile_value == board->win_value)
 		board->win = true;
 
 	board->empty_tiles++;

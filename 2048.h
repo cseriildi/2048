@@ -54,9 +54,11 @@
 #define SCORE_PRINT_START 0
 #define MAX_TILE_PRINT_START -5
 
+#define DEFAULT_WIN 2048
+
 enum e_const
 {
-	WIN_VALUE = 2048
+	WIN_VALUE = 4098
 };
 
 typedef struct s_win {
@@ -86,6 +88,7 @@ typedef struct board
 
 	t_win	score_win;
 	t_win	menu;
+	unsigned int win_value;
 	unsigned int score;
 	unsigned int max_tile_value;
 	unsigned int screen_x;
@@ -114,7 +117,6 @@ typedef enum e_result
 	SUCCESS,
 	CANT_OPEN_FILE,
 	NCURSES_FAILED,
-	WIN_VALUE_ERROR,
 	SCORE_LIST_SIZE_ERROR,
 	USER_EXIT,
 }	t_result;

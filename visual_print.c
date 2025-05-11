@@ -48,5 +48,5 @@ void print_stats(t_board *board)
 
 	print_centered_str_number(&board->score_win, row++,STATS2, board->score);
 	print_centered_str_number(&board->score_win, row++,STATS3, board->max_tile_value);
-	print_centered_str_number(&board->score_win, row++,STATS4, WIN_VALUE);
+	print_centered_str_number(&board->score_win, row++,STATS4, board->win_value);
 }
