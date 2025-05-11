@@ -4,8 +4,13 @@ static void	merge_helper(t_board *board, int x, int y)
 {
 	board->tiles[y][x].number *= 2;
 	board->score += board->tiles[y][x].number;
-	if (board->tiles[y][x].number == WIN_VALUE)
-		board->win = true; //TODO: write something if the player wins
+
+	if (board->tiles[y][x].number > board->max_tile_value)
+		board->max_tile_value = board->tiles[y][x].number;
+
+	if (!board->win && board->max_tile_value == WIN_VALUE)
+		board->win = true;
+
 	board->empty_tiles++;
 	board->spawn = true;
 }

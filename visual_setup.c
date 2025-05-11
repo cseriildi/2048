@@ -20,9 +20,13 @@ t_result	setup_menu_window(t_board *board)
 	board->menu.scroll_offset = 0;
 	board->menu.size_x = MENU_WIDTH;
 	board->menu.size_y = MENU_HEIGHT;
-	board->menu.win = newwin(board->menu.size_y, board->menu.size_x,
-			board->screen_y / 2 - board->menu.size_y / 2,	// position y
-			board->screen_x / 2 - board->menu.size_x / 2);	// position x
+	board->menu.pos_x = board->screen_x / 2 - board->menu.size_x / 2;
+	board->menu.pos_y = board->screen_y / 2 - board->menu.size_y / 2;
+	board->menu.win = newwin(
+							board->menu.size_y,
+							board->menu.size_x,
+							board->menu.pos_y,
+							board->menu.pos_x);
 	if (board->menu.win == NULL)
 		return NCURSES_FAILED;
 	
@@ -42,10 +46,10 @@ t_result	setup_board_window(t_board *board)
 			tile->win.pos_x = j * (MIN_TILE_X + MIN_TILE_SPACING * 2) + 1;
 			tile->win.pos_y = i * (MIN_TILE_Y + MIN_TILE_SPACING) + 1;
 			tile->win.win = newwin(
-						tile->win.size_y,
-						tile->win.size_x,
-						tile->win.pos_y,
-						tile->win.pos_x);
+								tile->win.size_y,
+								tile->win.size_x,
+								tile->win.pos_y,
+								tile->win.pos_x);
 			if (tile->win.win == NULL)
 				return NCURSES_FAILED;
 		}
@@ -105,7 +109,5 @@ t_result	setup_ncurses(t_board *board)
 	if ((result = window_size_check(board)) != SUCCESS)
 		return result;
 	// window creation
-	if ((result = setup_windows_error(board)) != SUCCESS)
-		return result;
-	return SUCCESS;
+	return setup_windows_error(board);
 }

@@ -12,6 +12,7 @@ SRCS = main.c \
 		visual_menu.c \
 		visual_resize.c \
 		visual_setup.c \
+		visual_print.c \
 		#debug.c 
 
 CC = cc
