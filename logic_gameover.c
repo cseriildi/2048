@@ -29,7 +29,7 @@ static bool	simulate_merge_found(
 			for (int y = 0; y < board->size; y++)
 			{
 				if (merge && board->tiles[y][x].number > 0 && merge(board, x, y))
-				return (true);
+					return (true);
 			}
 		}
 	}
@@ -41,7 +41,7 @@ static bool	simulate_merge_found(
 			for (int y = board->size - 1; y >= 0; y--)
 			{
 				if (merge && board->tiles[y][x].number > 0 && merge(board, x, y))
-				return (true);
+					return (true);
 			}
 		}
 	}
@@ -59,14 +59,7 @@ static bool	is_move_possible(t_board *board)
 void	check_game_over(t_board *board)
 {
 	if (!board->game_over && board->empty_tiles == 0 && !is_move_possible(board))
-	{
 		board->game_over = true;
-		box(board->menu.win, 0, 0);
-		wattron(board->menu.win, A_BOLD);
-		print_centered(&board->menu, 1, GAME_OVER1);
-		print_centered(&board->menu, 2, GAME_OVER2);
-		print_centered_number(&board->menu, 3, board->score);
-		wattroff(board->menu.win, A_BOLD);
-		wrefresh(board->menu.win);
-	}
+	if (board->game_over)
+	update_menu(board);	
 }

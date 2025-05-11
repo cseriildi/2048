@@ -82,6 +82,10 @@ void game_loop(t_board *board)
 				exec_move(board, LEFT);
 			else if (ch == KEY_RIGHT)
 				exec_move(board, RIGHT);
+			else if (ch == 'g')
+				board->game_over = true;
+			else if (ch == 'w')
+				board->score = WIN_VALUE;
 			else
 			 	continue;
 

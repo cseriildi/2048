@@ -17,6 +17,8 @@ t_result	resize_gameloop(t_board *board, int ch)
 		keypad(board->score_win.win, TRUE);
 		update_board(board);
 		update_score(board);
+		init_menu(board);
+		check_game_over(board);
 	}
 	return res;
 }
