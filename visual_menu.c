@@ -14,7 +14,8 @@ void update_menu(t_board *board)
 	}
 	else
 	{
-		box(board->menu.win, 0, 0);
+		// box(board->menu.win, 0, 0);
+		wbkgd(board->menu.win, COLOR_PAIR(6));
 		wattron(board->menu.win, A_BOLD); 
 		print_centered(&board->menu, ROW_TITLE, MENU_TITLE);
 		wattroff(board->menu.win, A_BOLD); 
@@ -70,6 +71,7 @@ t_result get_grid_size(t_board *board)
 		update_menu(board);
 		ch = wgetch(board->menu.win);
 	}
+	wbkgd(board->menu.win, COLOR_PAIR(0));
 	board->size = (board->menu.scroll_offset == 0) ? 4 : 5;
 	wclear(board->menu.win);
 	wrefresh(board->menu.win);
