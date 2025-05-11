@@ -14,7 +14,6 @@ void update_menu(t_board *board)
 	}
 	else
 	{
-		// box(board->menu.win, 0, 0);
 		wbkgd(board->menu.win, COLOR_PAIR(6));
 		wattron(board->menu.win, A_BOLD); 
 		print_centered(&board->menu, ROW_TITLE, MENU_TITLE);
