@@ -74,7 +74,7 @@ void update_score(t_board *board)
 	while  (row < max_row && board->top_scores[i] != 0)
 		print_centered_number(&board->score_win, row++, board->top_scores[i++]);
 
-	print_stats(board, row);
+	print_stats(board);
 
 	wbkgd(board->score_win.win, COLOR_PAIR(ft_min(get_power_of_two(board->max_tile_value) + 1, NUMBER_OF_COLORS)));
 	wrefresh(board->score_win.win);
