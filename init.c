@@ -2,6 +2,7 @@
 
 void init_board(t_board *board)
 {
+	init_ascii_numbers(board);
 	srand(time(NULL));
 	for (int x = 0; x < board->size; x++)
 	{

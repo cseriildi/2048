@@ -10,8 +10,6 @@ int main(void)
 
 	// if ((result = init_score(&board)) != SUCCESS)
 	// 	return print_error(result);
-		
-	init_ascii_numbers(&board);
 	if ((result = setup_ncurses(&board)) == SUCCESS
 		&& (result = init_score(&board)) == SUCCESS)
 	{
