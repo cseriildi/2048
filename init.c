@@ -17,23 +17,7 @@ void init_board(t_board *board)
 	
 	spawn_number(board);
 	spawn_number(board);
-	// board->tiles[0][0].number = 2;
-	// board->tiles[0][1].number = 4;
-	// board->tiles[0][2].number = 8;
-	// board->tiles[0][3].number = 16;
-	// board->tiles[0][4].number = 32;
-	// board->tiles[1][0].number = 64;
-	// board->tiles[1][1].number = 128;
-	// board->tiles[1][2].number = 256;
-	// board->tiles[1][3].number = 512;
-	// board->tiles[1][4].number = 1024;
-	// board->tiles[2][0].number = 2048;
-	// board->tiles[2][1].number = 4096;
-	// board->tiles[2][2].number = 8192;
-	// board->tiles[2][3].number = 16384;
-	// board->tiles[2][4].number = 32768;
-	// board->tiles[3][0].number = 65536;
-	// board->tiles[3][1].number = 131072;
+	
 	update_board(board);
 	update_score(board);
 }
@@ -63,7 +47,6 @@ t_result init_score(t_board *board)
 	unsigned int score = 0;
 
 	ft_memset(board->top_scores, 0, sizeof(board->top_scores));
-	// ft_memcpy(board->top_scores, (unsigned int[SCORE_LIST_SIZE]){0}, sizeof(board->top_scores));
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		if (is_valid_score(line) == false)
