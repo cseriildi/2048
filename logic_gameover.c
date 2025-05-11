@@ -62,7 +62,7 @@ void	check_game_over(t_board *board)
 		board->game_over = true;
 	if (board->game_over)
 	{
-		update_menu(board);
 		update_score(board);
+		update_menu(board);
 	}
 }
