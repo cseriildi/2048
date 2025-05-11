@@ -11,6 +11,7 @@
 #include <ncurses.h>
 
 #define is_power_of_two(n) n > 0 && (n & (n - 1)) == 0
+#define ft_min(a, b) (a < b ? a : b)
 
 #define ESCAPE 27
 
@@ -41,6 +42,8 @@
 #define STATS2 "Your score:"
 #define STATS3 "Max tile:"
 #define STATS4 "Goal:"
+
+#define NUMBER_OF_COLORS 18
 
 #define SCORE_PRINT_START 0
 #define MAX_TILE_PRINT_START -5

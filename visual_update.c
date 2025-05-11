@@ -26,7 +26,7 @@ void update_board(t_board *board)
 			wclear(tile.win.win);
 			if (has_colors())
 			{
-				tile.win.color = get_power_of_two(tile.number) + 1; //ft_sqrt(tile.number) + 1;
+				tile.win.color = ft_min(get_power_of_two(tile.number) + 1, NUMBER_OF_COLORS);
 				wbkgd(tile.win.win, COLOR_PAIR(tile.win.color));
 			}
 			else
@@ -77,6 +77,6 @@ void update_score(t_board *board)
 
 	print_stats(board, row);
 
-	wbkgd(board->score_win.win, COLOR_PAIR(get_power_of_two(board->max_tile_value) + 1));
+	wbkgd(board->score_win.win, COLOR_PAIR(ft_min(get_power_of_two(board->max_tile_value) + 1, NUMBER_OF_COLORS)));
 	wrefresh(board->score_win.win);
 }
