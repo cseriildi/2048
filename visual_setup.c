@@ -13,6 +13,7 @@ static void	define_colors(void)
 		for (int i = 0; i < 20; ++i)
 			init_pair(i + 1, COLOR_BLACK, blue_shades[i]);
 	}
+	init_pair(20, COLOR_WHITE, COLOR_RED);
 }
 
 t_result	setup_menu_window(t_board *board)
