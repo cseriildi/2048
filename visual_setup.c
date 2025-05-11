@@ -4,15 +4,14 @@ static void	define_colors(void)
 {
 	if (has_colors())
 	{
-		start_color();
-		//TODO: select final colors
-		short blue_shades[20] = {
-			231, 189, 153, 117, 111, 110, 109, 81, 80, 79,
-			74, 73, 72, 67, 66, 65, 60, 25, 24, 18
+		start_color(); //98
+		short rainbow[18] = {
+			 231, 122, 123, 117, 111, 105, 141, 177, 212, 211, 210, 216, 222, 228, 192, 156, 120 ,121
 		};
-		for (int i = 0; i < 20; ++i)
-			init_pair(i + 1, COLOR_BLACK, blue_shades[i]);
+		for (int i = 0; i < 18; ++i)
+			init_pair(i + 1, COLOR_BLACK, rainbow[i]);
 	}
+	init_pair(21, COLOR_WHITE, COLOR_RED);
 }
 
 t_result	setup_menu_window(t_board *board)
@@ -49,9 +48,9 @@ t_result	setup_board_window(t_board *board)
 				base_side = board->screen_x - SCORE_WIN_X - WINDOW_SPACING;
 			else
 				base_side = (board->screen_y ) * 2 - MIN_TILE_SPACING - WINDOW_SPACING;
-			if (base_side % 2)
-				base_side--;
 			tile->win.size_x = base_side / board->size - WINDOW_SPACING * 2;
+			if (tile->win.size_x % 2)
+				tile->win.size_x--;
 			tile->win.size_y = tile->win.size_x / 2;
 			
 			tile->win.pos_x = j * (tile->win.size_x + MIN_TILE_SPACING * 2) + WINDOW_SPACING;
@@ -70,8 +69,6 @@ t_result	setup_board_window(t_board *board)
 
 t_result	setup_score_window(t_board *board)
 {
-	//TODO: formula for resizing
-	//HACK: probably add WINDOW_SPACING here too 
 	int total_board_width = board->size
 							* (board->tiles[0][0].win.size_x + MIN_TILE_SPACING * 2);
 	// int total_board_width = board->size * (MIN_TILE_X + MIN_TILE_SPACING * 2);

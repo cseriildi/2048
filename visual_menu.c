@@ -5,6 +5,7 @@ void update_menu(t_board *board)
 	if (board->game_over)
 	{
 		box(board->menu.win, 0, 0);
+		wbkgd(board->menu.win, COLOR_PAIR(21));
 		wattron(board->menu.win, A_BOLD);
 		print_centered(&board->menu, 1, GAME_OVER1);
 		print_centered(&board->menu, 2, GAME_OVER2);
