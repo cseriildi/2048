@@ -83,6 +83,7 @@ typedef struct board
 	unsigned int screen_y;
 	unsigned int min_screen_x;
 	unsigned int min_screen_y;
+	unsigned int x_offset;
 
 	unsigned int top_scores[SCORE_LIST_SIZE];
 
