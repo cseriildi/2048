@@ -8,8 +8,8 @@ void update_menu(t_board *board)
 		wbkgd(board->menu.win, COLOR_PAIR(NUMBER_OF_COLORS + 1));
 		wattron(board->menu.win, A_BOLD);
 		print_centered(&board->menu, 1, GAME_OVER1);
-		print_centered(&board->menu, 2, GAME_OVER2);
-		print_centered_number(&board->menu, 3, board->score);
+		print_centered(&board->menu, 3, GAME_OVER2);
+		print_centered_number(&board->menu, 4, board->score);
 		wattroff(board->menu.win, A_BOLD);
 	}
 	else
