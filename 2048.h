@@ -59,7 +59,7 @@
 
 enum e_const
 {
-	WIN_VALUE = 4098
+	WIN_VALUE = 2048
 };
 
 typedef struct s_win {
