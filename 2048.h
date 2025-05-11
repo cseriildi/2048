@@ -11,7 +11,7 @@
 #include <ncurses.h>
 
 #define is_power_of_two(n) n > 0 && (n & (n - 1)) == 0
-#define ft_min(a, b) (a < b ? a : b)
+#define ft_min(a, b) (((a) < (b)) ? (a) : (b))
 
 #define ESCAPE 27
 
