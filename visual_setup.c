@@ -60,11 +60,15 @@ t_result	setup_board_window(t_board *board)
 t_result	setup_score_window(t_board *board)
 {
 	//TODO: formula for resizing
-	int total_board_width = board->size * (MIN_TILE_X + MIN_TILE_SPACING * 2);
-	board->score_win.size_x = board->screen_x - total_board_width;
-	board->score_win.size_y = board->screen_y;
-	board->score_win.pos_x = total_board_width;
-	board->score_win.pos_y = 0;
+	//HACK: probably add WINDOW_SPACING here too 
+	int total_board_width = board->size
+							* (board->tiles[0][0].win.size_x + MIN_TILE_SPACING * 2);
+	// int total_board_width = board->size * (MIN_TILE_X + MIN_TILE_SPACING * 2);
+	board->score_win.size_x = SCORE_WIN_X;
+	// board->score_win.size_x = board->screen_x - total_board_width;
+	board->score_win.size_y = board->screen_y - 2;
+	board->score_win.pos_x = total_board_width + WINDOW_SPACING;
+	board->score_win.pos_y = 1;
 	board->score_win.win = newwin(
 								board->score_win.size_y,
 								board->score_win.size_x,
