@@ -46,9 +46,16 @@ static t_result window_too_small_loop(t_board *board)
 // t_result	window_resize_loop(t_board *board)
 t_result	window_size_check(t_board *board)
 {
+	t_result res;
 	getmaxyx(stdscr, board->screen_y, board->screen_x);
 	unsigned int min_board_x = MAX_BOARD_SIZE * (MIN_TILE_X + MIN_TILE_SPACING * 2);
-	board->min_screen_x = min_board_x + MIN_SCORE_X;
+	board->min_screen_x = min_board_x + MIN_SCORE_X + WINDOW_SPACING;
 	board->min_screen_y = MAX_BOARD_SIZE * (MIN_TILE_Y + MIN_TILE_SPACING) + 1;
-	return window_too_small_loop(board);
+	res = window_too_small_loop(board);
+	if (res == SUCCESS)
+	{
+		erase();
+		refresh();
+	}
+	return res;
 }

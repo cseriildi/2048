@@ -40,11 +40,22 @@ t_result	setup_board_window(t_board *board)
 		for (int j = 0; j < board->size; j++)
 		{
 			t_tile *tile = &board->tiles[i][j];
-			//TODO: formula for resizing
-			tile->win.size_x = MIN_TILE_X;
-			tile->win.size_y = MIN_TILE_Y;
-			tile->win.pos_x = j * (MIN_TILE_X + MIN_TILE_SPACING * 2) + 1;
-			tile->win.pos_y = i * (MIN_TILE_Y + MIN_TILE_SPACING) + 1;
+			int	base_side;
+			// tile->win.size_x = MIN_TILE_X;
+			// tile->win.size_y = MIN_TILE_Y;
+			// tile->win.pos_x = j * (MIN_TILE_X + MIN_TILE_SPACING * 2) + 1;
+			// tile->win.pos_y = i * (MIN_TILE_Y + MIN_TILE_SPACING) + 1;
+			if (board->screen_x - SCORE_WIN_X - WINDOW_SPACING< (board->screen_y) * 2)
+				base_side = board->screen_x - SCORE_WIN_X - WINDOW_SPACING;
+			else
+				base_side = (board->screen_y ) * 2 - MIN_TILE_SPACING - WINDOW_SPACING;
+			if (base_side % 2)
+				base_side--;
+			tile->win.size_x = base_side / board->size - WINDOW_SPACING * 2;
+			tile->win.size_y = tile->win.size_x / 2;
+			
+			tile->win.pos_x = j * (tile->win.size_x + MIN_TILE_SPACING * 2) + WINDOW_SPACING;
+			tile->win.pos_y = i * (tile->win.size_y + MIN_TILE_SPACING) + WINDOW_SPACING;
 			tile->win.win = newwin(
 								tile->win.size_y,
 								tile->win.size_x,
@@ -60,11 +71,15 @@ t_result	setup_board_window(t_board *board)
 t_result	setup_score_window(t_board *board)
 {
 	//TODO: formula for resizing
-	int total_board_width = board->size * (MIN_TILE_X + MIN_TILE_SPACING * 2);
-	board->score_win.size_x = board->screen_x - total_board_width;
-	board->score_win.size_y = board->screen_y;
-	board->score_win.pos_x = total_board_width;
-	board->score_win.pos_y = 0;
+	//HACK: probably add WINDOW_SPACING here too 
+	int total_board_width = board->size
+							* (board->tiles[0][0].win.size_x + MIN_TILE_SPACING * 2);
+	// int total_board_width = board->size * (MIN_TILE_X + MIN_TILE_SPACING * 2);
+	board->score_win.size_x = SCORE_WIN_X;
+	// board->score_win.size_x = board->screen_x - total_board_width;
+	board->score_win.size_y = board->screen_y - 2;
+	board->score_win.pos_x = total_board_width + WINDOW_SPACING;
+	board->score_win.pos_y = 1;
 	board->score_win.win = newwin(
 								board->score_win.size_y,
 								board->score_win.size_x,

@@ -33,6 +33,8 @@
 #define MIN_TILE_Y 3
 #define MIN_TILE_SPACING 1
 #define MIN_SCORE_X 16
+#define SCORE_WIN_X 18
+#define WINDOW_SPACING 1
 #define GAME_OVER1 "Game Over!"
 #define GAME_OVER2 "Your score is"
 #define STATS1 "Your stats"
@@ -40,7 +42,7 @@
 #define STATS3 "Max tile:"
 #define STATS4 "Goal:"
 
-#define SCORE_PRINT_START 1
+#define SCORE_PRINT_START 0
 #define MAX_TILE_PRINT_START -5
 
 enum e_const
