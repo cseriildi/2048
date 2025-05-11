@@ -167,6 +167,7 @@ unsigned int	get_center_pos(t_win *win, unsigned int size);
 void		print_centered(t_win *win, int row, const char *str);
 void		print_centered_number(t_win *win, int row, unsigned int number);
 void		print_stats(t_board *board);
+unsigned int numlen(unsigned int number);
 
 // ascii art
 unsigned int	ascii_fits(t_tile *tile, t_board *board);

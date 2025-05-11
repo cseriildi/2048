@@ -26,11 +26,25 @@ static t_result window_too_small_loop(t_board *board)
 		   board->screen_y < board->min_screen_y)
 	{
 		keypad(stdscr, TRUE);
-		mvprintw(ROW_TITLE,COL_TEXT,"terminal too small");
-		mvprintw(ROW_TITLE + 1,COL_TEXT,"size (%i,%i) need (%i,%i)",
+		erase();
+		refresh();
+		wbkgd(stdscr, COLOR_PAIR(20));
+		wattron(stdscr, A_BOLD);
+		unsigned int x = board->screen_x / 2 - 18 / 2;
+		unsigned int y = board->screen_y / 2 - 1;
+		mvprintw(y,x,"terminal too small"); // 18
+		wattroff(stdscr, A_BOLD);
+		unsigned int len = numlen(board->screen_x);
+		len += numlen(board->screen_y);
+		len += numlen(board->min_screen_x);
+		len += numlen(board->min_screen_y);
+		x = board->screen_x / 2 - (len + 17) / 2;
+		y += 2;
+		attron(COLOR_PAIR(21));
+		mvprintw(y, x,"size (%i,%i) need (%i,%i)", // 17 + len
 			board->screen_x, board->screen_y,
 			board->min_screen_x, board->min_screen_y);
-		refresh();
+		attroff(COLOR_PAIR(22));
 		if (getch() == ESCAPE)
 			return (USER_EXIT);
 		getmaxyx(stdscr, board->screen_y, board->screen_x);
@@ -47,6 +61,7 @@ t_result	window_size_check(t_board *board)
 	board->min_screen_x = min_board_x + MIN_SCORE_X + WINDOW_SPACING;
 	board->min_screen_y = MAX_BOARD_SIZE * (MIN_TILE_Y + MIN_TILE_SPACING) + 1;
 	res = window_too_small_loop(board);
+	wbkgd(stdscr, COLOR_PAIR(0));
 	if (res == SUCCESS)
 	{
 		erase();

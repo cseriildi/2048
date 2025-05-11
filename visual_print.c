@@ -11,7 +11,7 @@ void print_centered(t_win *win, int row, const char *str)
 	mvwprintw(win->win, row, center_x, "%s", str);
 }
 
-static unsigned int numlen(unsigned int number)
+unsigned int numlen(unsigned int number)
 {
 	if (number == 0)
 		return 1;

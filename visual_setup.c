@@ -12,6 +12,8 @@ static void	define_colors(void)
 			init_pair(i + 1, COLOR_BLACK, rainbow[i]);
 	}
 	init_pair(NUMBER_OF_COLORS + 1, COLOR_WHITE, COLOR_RED);
+	init_pair(NUMBER_OF_COLORS + 2, COLOR_RED, COLOR_WHITE);
+	init_pair(NUMBER_OF_COLORS + 3, COLOR_BLACK, COLOR_WHITE);
 }
 
 t_result	setup_menu_window(t_board *board)
