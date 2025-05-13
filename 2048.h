@@ -41,7 +41,7 @@
 #define GAME_OVER1 "Game Over!"
 #define GAME_OVER2 "Your score is"
 #define STATS1 "Your stats"
-#define STATS2 "Your score:"
+#define STATS2 "Score:"
 #define STATS3 "Max tile:"
 #define STATS4 "Goal:"
 
