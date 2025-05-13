@@ -17,6 +17,9 @@ void init_board(t_board *board)
 	
 	spawn_number(board);
 	spawn_number(board);
+
+	if (board->max_tile_value >= board->win_value)
+		board->win = true;
 	
 	update_board(board);
 	update_score(board);
